@@ -128,7 +128,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 use dbFastParking;
 
-insert into tblCliente (nome) values("tuts da silva");
+insert into tblCliente (nome) values("tuts da sildsva");
 
 select* from tblCliente;
 
@@ -137,7 +137,7 @@ insert into tblVeiculo (placa, marca, modelo) values ("test2t44" , "fiat", "toro
 select * from tblVeiculo;
 
 update tblVeiculo set
-placa = replace(upper(placa),)
+placa = replace(upper(placa),"-", "");
 
 insert into tblEntrada (dataDeEntrada, horaDeEntrada) values (current_date(), current_time());
 
@@ -147,14 +147,18 @@ insert into tblSaida (dataDeSaida, horaDeSaida) values (current_date() , "22:20:
 
 select * from tblSaida;
 
-insert into tblEstadia (idCliente, idVeiculo, idEntrada, idSaida, valor, pago) values (2,2,2,2,25.00, false);
+insert into tblEstadia (idCliente, idVeiculo, idEntrada, idSaida, valor, pago) values (4,2,2,1,25.00, false);
 
 select * from tblEstadia;
 
-select tblCliente.nome as cliente, tblVeiculo.placa, tblVeiculo.marca, tblVeiculo.modelo, tblEntrada.dataDeEntrada , tblEntrada.horaDeEntrada, tblSaida.dataDeSaida , tblSaida.horaDeSaida ,tblEstadia.valor as preço, tblEstadia.pago from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida;
+select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida;
 
 insert into tblPrecos (precoEntrada, precoAdicional) values (12.00 , 5.00);
 
 select * from tblPrecos;
 
 select tblEntrada.idEntrada, tblEntrada.dataDeEntrada, tblEntrada.horaDeEntrada from tblEntrada, tblEstadia, tblVeiculo where tblVeiculo.placa = "	" and tblVeiculo.idVeiculo = tblEstadia.idVeiculo and tblEntrada.idEntrada = tblEstadia.idEntrada;
+
+delete from tblSaida where i = 2;
+
+select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada; #and tblEstadia.idSaida = tblSaida.idSaida or tblEstadia.idSaida = null;

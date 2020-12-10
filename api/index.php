@@ -11,6 +11,9 @@ $app->get('/', function ($request, $response, $args){ // get ('/' = site/api/ (/
     return $response->getBody()->write("API FastParking"); //para enviar dados no body do protocolo http ou escrever uma mensagem para o usuario
 }); 
 
+// GETS --->
+
+// Entradas
 $app->get('/entrada' , function ($request, $response, $args){
     
     require_once("../php/apiEntrada.php");
@@ -30,7 +33,7 @@ $app->get('/entrada' , function ($request, $response, $args){
 
 });
 
-$app->get('/entradaPorId/{id}' , function ($request, $response, $args){
+$app->get('/entrada/{id}' , function ($request, $response, $args){
     
     $id = $args['id'];
 
@@ -51,7 +54,7 @@ $app->get('/entradaPorId/{id}' , function ($request, $response, $args){
 
 });
 
-$app->get('/entradaPorPlaca/{placa}' , function ($request, $response, $args){
+$app->get('/entrada/placa/{placa}' , function ($request, $response, $args){
     $placa = (string) null;
     $placa = $args['placa'];
     
@@ -72,5 +75,89 @@ $app->get('/entradaPorPlaca/{placa}' , function ($request, $response, $args){
 
 });
 
+// Saidas
+$app->get('/saida' , function ($request, $response, $args){
+    
+    require_once("../php/apiSaida.php");
+
+    $listSaidas = ListarSaida(0,"");
+
+    if($listSaidas) { // função para listar todos os contatos 
+        return $response    -> withStatus(200)
+                            -> withHeader('Content-Type', 'application/json')
+                            -> write($listSaidas);
+        //widthStatus (status http)
+        //widthHeader ('Content-Type' , 'application/tipo')
+        //write() escreve na tela
+    }else {
+        return $response    -> withStatus(204);
+    } 
+
+});
+
+$app->get('/saida/{id}' , function ($request, $response, $args){
+    
+    $id = $args['id'];
+
+    require_once("../php/apiSaida.php");
+
+    $listSaidas = ListarSaida($id,"");
+
+    if($listSaidas) { // função para listar todos os contatos 
+        return $response    -> withStatus(200)
+                            -> withHeader('Content-Type', 'application/json')
+                            -> write($listSaidas);
+        //widthStatus (status http)
+        //widthHeader ('Content-Type' , 'application/tipo')
+        //write() escreve na tela
+    }else {
+        return $response    -> withStatus(204);
+    } 
+
+});
+
+$app->get('/saida/placa/{placa}' , function ($request, $response, $args){
+    $placa = (string) null;
+    $placa = $args['placa'];
+    
+    require_once("../php/apiSaida.php");
+
+    $listSaidas = ListarSaida(0, $placa);
+
+    if($listSaidas) { // função para listar todos os contatos 
+        return $response    -> withStatus(200)
+                            -> withHeader('Content-Type', 'application/json')
+                            -> write($listSaidas);
+        //widthStatus (status http)
+        //widthHeader ('Content-Type' , 'application/tipo')
+        //write() escreve na tela
+    }else {
+        return $response    -> withStatus(204);
+    } 
+
+});
+
+// Estadias
+
+$app->get('/estadia' , function ($request, $response, $args){
+    
+    require_once("../php/apiEstadia.php");
+
+    $listEstadia = listAllEstadia();
+
+    if($listEstadia) { // função para listar todos os contatos 
+        return $response    -> withStatus(200)
+                            -> withHeader('Content-Type', 'application/json')
+                            -> write($listEstadia);
+        //widthStatus (status http)
+        //widthHeader ('Content-Type' , 'application/tipo')
+        //write() escreve na tela
+    }else {
+        return $response    -> withStatus(204);
+    } 
+
+});
+
+// <---
 
 $app->run();
