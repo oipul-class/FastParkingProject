@@ -1,0 +1,261 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 5px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #0F5585;
+    border-radius: 10px;
+    border: solid 2px #00000020;
+    transition: all 0.3s;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #1e75af;
+    border-radius: 10px;
+    border: solid 2px #00000020;
+    cursor: pointer;
+  }
+
+
+.fullContainer{
+    width: 100%;
+    min-height: 300px;
+    overflow: hidden;
+    /* background-color: ivory; */
+    display: flex;
+    justify-content: center;
+}
+header{
+    width: 100%;
+    height: 80px;
+    border-bottom: solid 3px #00000020;
+    background-color: #ffffff;
+    position: fixed;
+}
+
+#headerContainer{
+    width: 100vw;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    justify-content: space-between;
+    /* background-color: lightcoral; */
+}
+
+#home{
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.wallpaperCover{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+
+#mainWallpaper {
+    background-image: url(../../images/wallpaper.png);
+    width: 100vw;
+    min-height: 80vh;
+    overflow: hidden;
+    /* background-color: darkblue; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+#mainWallpaper h1{
+    font-size: 7vh;
+    color: white;
+    font-weight: 200;
+    text-align: center;
+    user-select: none;
+}
+
+#cmsContainer{
+    width: 100vw;
+    min-height: 30vh;
+    overflow: hidden;
+    /* background-color: aqua; */
+}
+
+#barraDeNavegacao{
+    width: inherit;
+    height: 70px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #0F5585;
+    border-bottom: solid 3px #00000020;
+
+}
+
+.navegacaoItens{
+    width: 20vw;
+    height: inherit;
+    /* background-color: lawngreen; */
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    user-select: none;
+    transition: all 0.5s;
+}
+.navegacaoItens:hover{
+    background-color: #1e75af;
+    cursor: pointer;
+}
+.navegacaoItens:active{
+    background-color: #ffffff;
+    transition: all 0.3s;
+}
+#entradaContainer{
+    width: 100vw;
+    min-height: 900px;
+    overflow: hidden;
+    /* background-color: brown; */
+}
+#entradaWallpaper{
+    background-image: url(../../images/wallpaper_cms.png);
+    width: 100vw;
+    height: 700px;
+    background-attachment: local;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+#entradaWallpaper h2{
+    color: #ffffff;
+    font-size: 5vh;
+    font-weight: 100;
+    text-align: center;
+}
+#insertEntrada{
+    min-width: 80vw;
+    overflow: hidden;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+.lableEntrada{
+    width: inherit;
+    height: 100px;
+    /* background-color: lawngreen; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.lableEntrada h1{
+    color: #0F5585;
+    font-size: 3vh;
+    font-weight: 100;
+    width: 40%;
+    height: 50px;
+    /* background-color: khaki; */
+    text-align: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+.lableEntrada input{
+    width: 40%;
+    height: 50px;
+    color: #0F5585;
+    font-size: 3vh;
+    font-weight: 100;
+    /* background-color: lightcoral; */
+    outline: none;
+    border: none;
+    /* background: none; */
+    border-bottom: solid 3px #0F5585;
+}
+.uppercase{
+    text-transform: uppercase;
+}
+
+#insertEntrada button{
+    width: 300px;
+    height: 50px;
+    margin: 0 auto;
+    background-color: #0F5585;
+    border-radius: 25px;
+    border: none;
+    color: #ffffff;
+    font-size: 22px;
+    outline: none;
+    font-weight: 200;
+    transition: all 0.5s;
+}
+
+#insertEntrada button:hover{
+    background-color: #1e75af;
+    cursor: pointer;
+}
+
+#insertEntrada button:active{
+    background-color: #ffffff;
+    transition: 0.3s;
+}
+
+
+.entradaCard{
+    width: inherit;
+    min-height: 250px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    border: solid 3px #00000090;
+    margin-bottom: 5px;
+    /* background-color: lawngreen; */
+}
+
+.entradaNome, .entradaHorario{
+    width: 300px;
+    height: 300px;
+    /* background-color: lightcoral; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.entradaNome h1,.entradaHorario h1, .entradaNome h2{
+    font-weight: 200;
+    color: #00000090;
+}
+.entradaNome h1{
+    font-size: 64px;
+}
+.entradaNome h2{
+    font-size: 24px;
+}
+.entradaHorario{
+    width: 30vw;
+}
