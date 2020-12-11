@@ -1,7 +1,6 @@
 <?php
 
-
-function listAllVeiculos() {
+function listAllUsuario() {
     require_once('conexaoMysql.php');
 
     if(!$conex = conexaoMysql())
@@ -10,41 +9,40 @@ function listAllVeiculos() {
         //die; //Finaliza a interpretação da página
     }
 
-    $sql = "select * from tblVeiculo";
+    $sql = "select * from tblUsuarios";
     $select = mysqli_query($conex, $sql);
 
-    
-
-    while($rsVeiculo = mysqli_fetch_assoc($select)) {
+    while($rsUsuario = mysqli_fetch_assoc($select)) {
         //varios itens para o json
         
         $dados[] = array (
             //          => - o que alimenta o dado de um array
-            'idVeiculo'         => $rsVeiculo['idVeiculo'],
-            'placa'             => $rsVeiculo['placa'],
-            'marca'             => $rsVeiculo['marca'],
-            'modelo'            => $rsVeiculo['modelo']
+            'idUsuario'                 => $rsUsuario['idUsuario'],
+            'nome'                      => $rsUsuario['nome'],
+            'senha'                     => $rsUsuario['senha'],
+            'statusUsuario'             => $rsUsuario['statusUsuario'],
+            'nivelAcesso'               => $rsUsuario['nivelAcesso']
         );  
     } 
     
     $headerDados = array (
         'status' => 'success',
-        'Veiculos' => $dados
+        'Usuarios' => $dados
     );
 
     if (isset($dados))
-        $listVeiculoJson = convertJson($headerDados);
+        $listClienteJson = convertJson($headerDados);
     else 
         false;
     //verificar se foi gerado um arquivo json
-    if (isset($listVeiculoJson)) 
-        return $listVeiculoJson;
+    if (isset($listClienteJson)) 
+        return $listClienteJson;
     else
         return false;
 
 }
 
-function listVeiculoPorPlaca($placa) {
+function listUsuarioPorId($id) {
     require_once('conexaoMysql.php');
 
     if(!$conex = conexaoMysql())
@@ -53,35 +51,34 @@ function listVeiculoPorPlaca($placa) {
         //die; //Finaliza a interpretação da página
     }
 
-    $sql = "select * from tblVeiculo where placa = '" . $placa ."'";
+    $sql = "select * from tblUsuarios where idUsuario = ". $id ;
     $select = mysqli_query($conex, $sql);
 
-    
-
-    while($rsVeiculo = mysqli_fetch_assoc($select)) {
+    while($rsUsuario = mysqli_fetch_assoc($select)) {
         //varios itens para o json
         
         $dados[] = array (
             //          => - o que alimenta o dado de um array
-            'idVeiculo'         => $rsVeiculo['idVeiculo'],
-            'placa'             => $rsVeiculo['placa'],
-            'marca'             => $rsVeiculo['marca'],
-            'modelo'            => $rsVeiculo['modelo']
+            'idUsuario'                 => $rsUsuario['idUsuario'],
+            'nome'                      => $rsUsuario['nome'],
+            'senha'                     => $rsUsuario['senha'],
+            'statusUsuario'             => $rsUsuario['statusUsuario'],
+            'nivelAcesso'               => $rsUsuario['nivelAcesso']
         );  
     } 
     
     $headerDados = array (
         'status' => 'success',
-        'Veiculos' => $dados
+        'Usuriao' => $dados
     );
 
     if (isset($dados))
-        $listVeiculoJson = convertJson($headerDados);
+        $listClienteJson = convertJson($headerDados);
     else 
         false;
     //verificar se foi gerado um arquivo json
-    if (isset($listVeiculoJson)) 
-        return $listVeiculoJson;
+    if (isset($listClienteJson)) 
+        return $listClienteJson;
     else
         return false;
 

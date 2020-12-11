@@ -171,4 +171,9 @@ select idEntrada from tblEntrada order by idEntrada desc limit 1;
 
 select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida and tblEstadia.idEstadia = 2;
 	
-select tblEstadia.idEstadia, tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida and tblVeiculo.placa = 'TEST2T18';
+select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida and tblVeiculo.placa = 'TEST2T18';
+
+select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida and tblVeiculo.placa = 'TEST2T18';
+
+select * from tblVeiculo;
+
