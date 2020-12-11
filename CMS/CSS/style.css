@@ -134,6 +134,7 @@ header{
     width: 100vw;
     min-height: 900px;
     overflow: hidden;
+    display: none;
     /* background-color: brown; */
 }
 #entradaWallpaper{
@@ -258,4 +259,124 @@ header{
 }
 .entradaHorario{
     width: 30vw;
+}
+
+#saidaContainer{
+    width: 100vw;
+    min-height: 300px;
+    overflow: hidden;
+    /* background-color: #1e75af; */
+}
+
+#encontrarRegistros{
+    width: inherit;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    /* background-color: aqua; */
+}
+
+#pesquisarLable{
+    width: 80vw;
+    height: 300px;
+    /* background-color: #fff; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#pesquisarLable h2{
+    font-weight: 200;
+    font-size: 48px;
+    color: #00000090;
+    text-align: center;
+}
+#pesquisarLable input{
+    width: inherit;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 32px;
+    padding: 0 15px;
+    border: solid 1px #00000090;
+    outline: none;
+}
+#pesquisarLable button{
+    width: 300px;
+    height: 50px;
+    border-radius: 30px;
+    border: none;
+    background-color: #0F5585;
+    color: #ffffff;
+    font-size: 26px;
+}
+
+#saidaCards{
+    width: 100vw;
+    min-height: 50px;
+    overflow: hidden;
+    /* background-color: aqua; */
+}
+
+.saidaCardContainer{
+    width: inherit;
+    min-height: 250px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    border: solid 3px #00000090;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+    /* background-color: lawngreen; */
+}
+
+.saidaNome h1, .saidaNome h2, .saidaNome h3, .saidaNome h6{
+    font-weight: 200;
+    color: #00000090;
+    display: block;
+}
+.saidaNome h1{
+    font-size: 64px;
+}
+.saidaNome h2{
+    font-size: 24px;
+}
+
+.saidaNome{
+    width: 70vw;
+    height: 300px;
+    /* background-color: lightcoral; */
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+    flex-direction: column;
+}
+
+.saidaPreco{
+    width: 300px;
+    height: 200px;
+    /* background-color: lightcoral; */
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+.saidaPreco h1{
+    color: #00000090;
+    font-weight: 200;
+    font-size: 64px;
+}
+.saidaPreco button{
+    width: inherit;
+    height: 50px;
+    background-color: #0F5585;
+    color: #ffffff;
+    border: none;
+    font-size: 24px;
+    border-radius: 30px;
 }
