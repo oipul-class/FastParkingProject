@@ -138,10 +138,10 @@ $app->get('/saida/placa/{placa}' , function ($request, $response, $args){
 });
 
 // Estadias
-
 $app->get('/estadia' , function ($request, $response, $args){
     
     require_once("../php/apiEstadia.php");
+
 
     $listEstadia = listAllEstadia();
 
@@ -149,13 +149,44 @@ $app->get('/estadia' , function ($request, $response, $args){
         return $response    -> withStatus(200)
                             -> withHeader('Content-Type', 'application/json')
                             -> write($listEstadia);
-        //widthStatus (status http)
-        //widthHeader ('Content-Type' , 'application/tipo')
-        //write() escreve na tela
     }else {
         return $response    -> withStatus(204);
     } 
 
+});
+
+$app->get('/estadia/byId/{id}' , function ($request, $response, $args){
+
+    $id = $args['id'];
+    
+    require_once("../php/apiEstadia.php");
+
+    $listEstadia = listEstadiaById( $id );
+
+    if($listEstadia) { // função para listar todos os contatos 
+        return $response    -> withStatus(200)
+                            -> withHeader('Content-Type', 'application/json')
+                            -> write($listEstadia);
+    }else {
+        return $response    -> withStatus(204);
+    } 
+
+});
+
+//veiculos
+$app->get('/veiculo' , function ($request, $response, $args){
+    
+    require_once("../php/apiVeiculo.php");
+
+    $listVeiculo = listAllVeiculos();
+
+    if($listVeiculo) { // função para listar todos os contatos 
+        return $response    -> withStatus(200)
+                            -> withHeader('Content-Type', 'application/json')
+                            -> write($listVeiculo);
+    }else {
+        return $response    -> withStatus(204);
+    } 
 });
 
 // <---

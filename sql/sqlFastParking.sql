@@ -147,9 +147,11 @@ insert into tblSaida (dataDeSaida, horaDeSaida) values (current_date() , "22:20:
 
 select * from tblSaida;
 
-insert into tblEstadia (idCliente, idVeiculo, idEntrada, idSaida, valor, pago) values (4,2,2,1,25.00, false);
+insert into tblEstadia (idCliente, idVeiculo, idEntrada, idSaida, valor, pago) values (1,1,3,3,25.00, false);
 
 select * from tblEstadia;
+
+delete from tblEstadia where idEstadia = 5;
 
 select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida;
 
@@ -159,6 +161,14 @@ select * from tblPrecos;
 
 select tblEntrada.idEntrada, tblEntrada.dataDeEntrada, tblEntrada.horaDeEntrada from tblEntrada, tblEstadia, tblVeiculo where tblVeiculo.placa = "	" and tblVeiculo.idVeiculo = tblEstadia.idVeiculo and tblEntrada.idEntrada = tblEstadia.idEntrada;
 
-delete from tblSaida where i = 2;
+select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida;
 
-select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada; #and tblEstadia.idSaida = tblSaida.idSaida or tblEstadia.idSaida = null;
+select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida and tblVeiculo.placa = "TEST2T18";
+
+select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida;
+
+select idEntrada from tblEntrada order by idEntrada desc limit 1;
+
+select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida and tblEstadia.idEstadia = 2;
+	
+select tblEstadia.idEstadia, tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida and tblVeiculo.placa = 'TEST2T18';
