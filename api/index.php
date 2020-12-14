@@ -228,11 +228,11 @@ $app->post('/veiculo', function ($request, $response, $args){
 
         }else {
             //Require das funções
-            require_once("../php/apiCliente.php");
+            require_once("../php/apiVeiculo.php");
             
             
             //dados inseridos com sucesso
-            $dados = insertCliente($dadosJson);
+            $dados = insertVeiculo($dadosJson);
             
             if ($dados) {
                 return $response    -> withStatus(201)
@@ -252,6 +252,51 @@ $app->post('/veiculo', function ($request, $response, $args){
     }
 });
 
+//Estadia
+$app->post('/estadia', function ($request, $response, $args){
+
+    $contentType = $request->getHeaderLine('Content-Type'); // getHeaderLine permite pegar conteudo sobre o header
+
+    if ($contentType == "application/json") {
+        //recebe todos os dados enviados para a api
+        $dadosJson = $request->getParsedBody(); 
+        
+        if ($dadosJson=="" || $dadosJson==null) {
+
+            return $response    -> withStatus(400)
+                                -> withHeader('Content-Type', 'application/json')
+                                -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Dados enviados não podem ser nulos"
+                                    }
+                                    ');
+
+        }else {
+            //Require das funções
+            require_once("../php/apiEstadia.php");
+            
+            
+            //dados inseridos com sucesso
+            $dados = insertEstadia($dadosJson);
+            
+            if ($dados) {
+                return $response    -> withStatus(201)
+                                    -> withHeader('Content-Type', 'application/json')
+                                    -> write($dados); 
+            }else { //falha na inserção dos dados
+                return $response    -> withStatus(401)
+                                    -> withHeader('Content-Type', 'application/json')
+                                    -> write('
+                                            {
+                                                "status":"Fail",
+                                                "Message":"Falha ao inserir os dados no BD. Verificar se os dados enviados estão corretos"
+                                            }
+                                            ');
+            }
+        }
+    }
+});
 
 //<---
 

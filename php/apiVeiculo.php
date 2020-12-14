@@ -87,7 +87,7 @@ function listVeiculoPorPlaca($placa) {
 
 }
 
-function insertCliente($dados) {
+function insertVeiculo($dados) {
     require_once('conexaoMysql.php');
 
     if(!$conex = conexaoMysql())
@@ -96,16 +96,20 @@ function insertCliente($dados) {
         //die; //Finaliza a interpretação da página
     }
 
-    $nome = (string) null;
+    $placa = (string) null;
+    $marca = (string) null;
+    $modelo = (string) null;
 
-    $nome = $dados['nome'];
+    $placa = $dados['placa'];
+    $marca = $dados['marca'];
+    $modelo = $dados['modelo'];
 
-    $sql = "insert into tblCliente (nome) values('" . $nome . "')";
-    
+    $sql = "insert into tblVeiculo (placa, marca, modelo) values('" . $placa . "', '" . $marca . "', '" . $modelo . "')";
+
     if (mysqli_query($conex, $sql))   
-    return convertJson($dados);
+        return convertJson($dados);
     else
-    return false;
+        return false;
 
     
 }

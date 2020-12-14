@@ -101,7 +101,42 @@ function listEstadiaById( $id ) {
         return false;
 }
 
+function insertEstadia($dados) {
+    require_once('conexaoMysql.php');
 
+    if(!$conex = conexaoMysql())
+    {
+        echo("<script> alert('".ERRO_CONEX_BD_MYSQL."'); </script>");
+        //die; //Finaliza a interpretação da página
+    }
+
+    $idCliente = (int) null;
+    $idVeiculo = (int) null;
+    $dataDaEntrada = (string) null;
+    $horaDaEntrada = (string) null;
+    $dataDaSaida = (string) null;
+    $horaDaSaida = (string) null;
+    $pago = (bool) null;
+    $valor = (double) null;
+
+    $idCliente = $dados['idCliente'];
+    $idVeiculo = $dados['idVeiculo'];
+    $dataDaEntrada = $dados['dataDaEntrada'];
+    $horaDaEntrada = $dados['horaDaEntrada'];
+    $dataDaSaida = $dados['dataDaSaida'];
+    $horaDaSaida = $dados['horaDaSaida'];
+    $pago = $dados['pago'];
+    $valor = $dados['valor'];
+
+    $sql = "insert into tblEstadia (idCliente, idVeiculo, dataDaEntrada, horaDaEntrada, dataDaSaida, horaDaSaida, pago, valor) values(". $id .")";
+
+    if (mysqli_query($conex, $sql))   
+        return convertJson($dados);
+    else
+        return false;
+
+    
+}
 
 function convertJson($data) {
     header("Content-Type:applicantion/json"); // forçando o cabeçalho do arquivo a ser aplicação do tipo json
