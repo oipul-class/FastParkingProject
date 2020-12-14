@@ -140,7 +140,6 @@ header{
     width: 100vw;
     min-height: 900px;
     overflow: hidden;
-    display: none;
     /* background-color: brown; */
 }
 #entradaWallpaper{
@@ -228,6 +227,12 @@ header{
 #insertEntrada button:active{
     background-color: #ffffff;
     transition: 0.3s;
+}
+
+.containerCard{
+    width: 100vw;
+    height: fit-content;
+    /* background-color: #1e75af; */
 }
 
 
@@ -392,7 +397,7 @@ header{
     width: 100vw;
     min-height: 200px;
     overflow: auto;
-    display: flex;
+    display: none;
     flex-direction: column;
 }
 
