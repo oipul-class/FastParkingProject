@@ -61,6 +61,9 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+select * from tblEstadia;
+
+
 /*insert into tblCliente (nome) values("tuts da sildsva");
 
 select* from tblCliente;
@@ -93,4 +96,8 @@ select * from tblVeiculo;
 select * from tblPrecos;
 
 insert into tblCliente (nome) values('pedroca'); */
+
+select * from tblPrecos;
+
+insert into tblPrecos(precoEntrada, precoAdicional) values ('12' , '6');
 

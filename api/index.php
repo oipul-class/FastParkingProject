@@ -236,6 +236,7 @@ $app->post('/estadia', function ($request, $response, $args){
     }
 });
 
+
 //<---
 
 $app->run();
