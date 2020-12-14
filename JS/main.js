@@ -24,8 +24,8 @@ const preencherEntrada = (dados) => {
     div.innerHTML = `
     <div class="entradaCard">
         <div class="entradaNome">
-            <h1>${dados.placa}</h1>
-            <h2>${dados.nome}</h2>
+            <h1>${dados.placaDoVeiculo}</h1>
+            <h2>${dados.nomeDoCliente}</h2>
         </div>
         <div class="entradaHorario">
             <h1>Horário de Entrada:${dados.horaDaEntrada}</h1>
@@ -51,8 +51,8 @@ const preencherSaida = (dados) => {
         div.innerHTML = `
         <div class="saidaCardContainer">
             <div class="saidaNome">
-                <h1>${dados.placa}</h1>
-                <h3>${dados.nome}</h3>
+                <h1>${dados.placaDoVeiculo}</h1>
+                <h3>${dados.nomeDoCliente}</h3>
                 <h2>Horário de Entrada:${dados.horaDaEntrada}</h2>
                 <h6>Id:${dados.idEstadia}</h6>
             </div>
