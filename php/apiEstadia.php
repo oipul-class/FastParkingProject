@@ -14,19 +14,15 @@ function listAllEstadia() {
         //die; //Finaliza a interpretação da página
     }
 
-    $sql = "select tblCliente.*, tblVeiculo.*, tblEstadia.* from tblCliente, tblVeiculo,  tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo";
+    $sql = "select * from tblEstadia";
     $select = mysqli_query($conex, $sql);
     while($rsEstadia = mysqli_fetch_assoc($select)) {
     
             $dados[] = array (
                 //          => - o que alimenta o dado de um array
                 'idEstadia'             => $rsEstadia['idEstadia'],
-                'idCliente'             => $rsEstadia['idCliente'],
-                'nome'                  => $rsEstadia['nome'],
-                'idVeiculo'             => $rsEstadia['idVeiculo'],
-                'placa'                 => $rsEstadia['placa'],
-                'marca'                 => $rsEstadia['marca'],
-                'modelo'                => $rsEstadia['modelo'],
+                'nomeDoCliente'         => $rsEstadia['nomeDoCliente'],
+                'placaDoVeiculo'        => $rsEstadia['placaDoVeiculo'],
                 'dataDaEntrada'         => $rsEstadia['dataDaEntrada'],
                 'horaDaEntrada'         => $rsEstadia['horaDaEntrada'],
                 'dataDaSaida'           => $rsEstadia['dataDaSaida'],
@@ -62,7 +58,7 @@ function listEstadiaById( $id ) {
         //die; //Finaliza a interpretação da página
     }
 
-    $sql = "select tblCliente.*, tblVeiculo.*, tblEstadia.* from tblCliente, tblVeiculo, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEstadia = " . $id;
+    $sql = "select * from tblEstadia where idEstadia = " . $id;
     $select = mysqli_query($conex, $sql);
     
     if ($rsEstadia = mysqli_fetch_assoc($select)) {
@@ -70,20 +66,15 @@ function listEstadiaById( $id ) {
         $dados[] = array (
             //          => - o que alimenta o dado de um array
             'idEstadia'             => $rsEstadia['idEstadia'],
-            'idCliente'             => $rsEstadia['idCliente'],
-            'nome'                  => $rsEstadia['nome'],
-            'idVeiculo'             => $rsEstadia['idVeiculo'],
-            'placa'                 => $rsEstadia['placa'],
-            'marca'                 => $rsEstadia['marca'],
-            'modelo'                => $rsEstadia['modelo'],
+            'nomeDoCliente'         => $rsEstadia['nomeDoCliente'],
+            'placaDoVeiculo'        => $rsEstadia['placaDoVeiculo'],
             'dataDaEntrada'         => $rsEstadia['dataDaEntrada'],
             'horaDaEntrada'         => $rsEstadia['horaDaEntrada'],
             'dataDaSaida'           => $rsEstadia['dataDaSaida'],
             'horaDaSaida'           => $rsEstadia['horaDaSaida'],
             'valor'                 => $rsEstadia['valor'],
             'pago'                  => $rsEstadia['pago']
-        );  
-    }
+        );     }
     
     $headerDados = array (
         'status' => 'success',
@@ -110,25 +101,26 @@ function insertEstadia($dados) {
         //die; //Finaliza a interpretação da página
     }
 
-    $idCliente = (int) null;
-    $idVeiculo = (int) null;
+
+
+
+
+
+    $nomeDoCliente = (string) null;
+    $placaDoVeiculo = (string) null;
     $dataDaEntrada = (string) null;
     $horaDaEntrada = (string) null;
-    $dataDaSaida = (string) null;
-    $horaDaSaida = (string) null;
     $pago = (bool) null;
     $valor = (double) null;
 
-    $idCliente = $dados['idCliente'];
-    $idVeiculo = $dados['idVeiculo'];
+    $nomeDoCliente = $dados['nomeDoCliente'];
+    $placaDoVeiculo = $dados['placaDoVeiculo'];
     $dataDaEntrada = $dados['dataDaEntrada'];
     $horaDaEntrada = $dados['horaDaEntrada'];
-    $dataDaSaida = $dados['dataDaSaida'];
-    $horaDaSaida = $dados['horaDaSaida'];
     $pago = $dados['pago'];
     $valor = $dados['valor'];
 
-    $sql = "insert into tblEstadia (idCliente, idVeiculo, dataDaEntrada, horaDaEntrada, dataDaSaida, horaDaSaida, pago, valor) values(". $id .")";
+    $sql = "insert into tblEstadia (nomeDoCliente, placaDoVeiculo, dataDaEntrada, horaDaEntrada, pago, valor) values('". $nomeDoCliente ."', '". $placaDoVeiculo ."', '". $dataDaEntrada ."', '". $horaDaEntrada ."',  ". $pago .", '". $valor ."')";
 
     if (mysqli_query($conex, $sql))   
         return convertJson($dados);

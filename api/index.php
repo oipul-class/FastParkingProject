@@ -48,68 +48,6 @@ $app->get('/estadia/{id}' , function ($request, $response, $args){
 
 });
 
-//veiculos
-$app->get('/veiculo' , function ($request, $response, $args){
-    
-    require_once("../php/apiVeiculo.php");
-
-    $listVeiculo = listAllVeiculos();
-
-    if($listVeiculo) { // função para listar todos os contatos 
-        return $response    -> withStatus(200)
-                            -> withHeader('Content-Type', 'application/json')
-                            -> write($listVeiculo);
-    }else {
-        return $response    -> withStatus(204);
-    } 
-});
-
-$app->get('/veiculo/{placa}' , function ($request, $response, $args){
-    
-    require_once("../php/apiVeiculo.php");
-
-    $placa = $args['placa'];
-
-    $listVeiculo = listVeiculoPorPlaca($placa);
-
-    if($listVeiculo) { // função para listar todos os contatos 
-        return $response    -> withStatus(200)
-                            -> withHeader('Content-Type', 'application/json')
-                            -> write($listVeiculo);
-    }else {
-        return $response    -> withStatus(204);
-    } 
-});
-
-//clientes
-$app->get('/cliente', function ($request, $response, $args){
-    require_once("../php/apiCliente.php");
-
-    $listCliente = listAllCliente();
-
-    if($listCliente) { // função para listar todos os contatos 
-        return $response    -> withStatus(200)
-                            -> withHeader('Content-Type', 'application/json')
-                            -> write($listCliente);
-    }else {
-        return $response    -> withStatus(204);
-    } 
-});
-
-$app->get('/cliente/{nome}', function ($request, $response, $args){
-    require_once("../php/apiCliente.php");
-
-    $nome = $args['nome'];
-    $listCliente = listClientePorNome($nome);
-
-    if($listCliente) { // função para listar todos os contatos 
-        return $response    -> withStatus(200)
-                            -> withHeader('Content-Type', 'application/json')
-                            -> write($listCliente);
-    }else {
-        return $response    -> withStatus(204);
-    } 
-});
 
 //usuarios
 $app->get('/usuario', function ($request, $response, $args){
