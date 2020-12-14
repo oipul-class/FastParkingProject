@@ -86,6 +86,30 @@ function listClientePorNome( $nome ) {
 
 }
 
+function insertCliente($dados) {
+    require_once('conexaoMysql.php');
+
+    if(!$conex = conexaoMysql())
+    {
+        echo("<script> alert('".ERRO_CONEX_BD_MYSQL."'); </script>");
+        //die; //Finaliza a interpretação da página
+    }
+
+    $nome = (string) null;
+
+    $nome = $dados['nome'];
+
+    $sql = "insert into tblCliente (nome) values('" . $nome . "')";
+    
+    if (mysqli_query($conex, $sql))   
+    return convertJson($dados);
+    else
+    return false;
+
+    
+}
+
+
 function convertJson($data) {
     header("Content-Type:applicantion/json"); // forçando o cabeçalho do arquivo a ser aplicação do tipo json
     $listJson = json_encode($data); // codificando em json   

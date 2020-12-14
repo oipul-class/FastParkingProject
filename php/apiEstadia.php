@@ -14,11 +14,11 @@ function listAllEstadia() {
         //die; //Finaliza a interpretação da página
     }
 
-    $sql = "select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida";
+    $sql = "select tblCliente.*, tblVeiculo.*, tblEstadia.* from tblCliente, tblVeiculo,  tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo";
     $select = mysqli_query($conex, $sql);
     while($rsEstadia = mysqli_fetch_assoc($select)) {
     
-            $dadosComSaida[] = array (
+            $dados[] = array (
                 //          => - o que alimenta o dado de um array
                 'idEstadia'             => $rsEstadia['idEstadia'],
                 'idCliente'             => $rsEstadia['idCliente'],
@@ -27,48 +27,21 @@ function listAllEstadia() {
                 'placa'                 => $rsEstadia['placa'],
                 'marca'                 => $rsEstadia['marca'],
                 'modelo'                => $rsEstadia['modelo'],
-                'idEntrada'             => $rsEstadia['idEntrada'],
-                'dataDeEntrada'         => $rsEstadia['dataDeEntrada'],
-                'horaDeEntrada'         => $rsEstadia['horaDeEntrada'],
-                'idSaida'               => $rsEstadia['idSaida'],
-                'dataDeSaida'           => $rsEstadia['dataDeSaida'],
-                'horaDeSaida'           => $rsEstadia['horaDeSaida'],
+                'dataDaEntrada'         => $rsEstadia['dataDaEntrada'],
+                'horaDaEntrada'         => $rsEstadia['horaDaEntrada'],
+                'dataDaSaida'           => $rsEstadia['dataDaSaida'],
+                'horaDaSaida'           => $rsEstadia['horaDaSaida'],
                 'valor'                 => $rsEstadia['valor'],
                 'pago'                  => $rsEstadia['pago']
             );  
         }  
 
-    $sql = "select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida is null";
-
-    $select = mysqli_query($conex, $sql);
-    while($rsEstadia = mysqli_fetch_assoc($select)) {
-    
-            $dadosSemSaida[] = array (
-                //          => - o que alimenta o dado de um array
-                'idEstadia'         => $rsEstadia['idEstadia'],
-                'idCliente'         => $rsEstadia['idCliente'],
-                'nome'              => $rsEstadia['nome'],
-                'idVeiculo'         => $rsEstadia['idVeiculo'],
-                'placa'             => $rsEstadia['placa'],
-                'marca'             => $rsEstadia['marca'],
-                'modelo'            => $rsEstadia['modelo'],
-                'idEntrada'         => $rsEstadia['idEntrada'],
-                'dataDeEntrada'     => $rsEstadia['dataDeEntrada'],
-                'horaDeEntrada'     => $rsEstadia['horaDeEntrada'],
-                'idSaida'           => $rsEstadia['idSaida'],
-                'valor'             => $rsEstadia['valor'],
-                'pago'              => $rsEstadia['pago']
-            );  
-        }       
-    
-
     $headerDados = array (
         'status' => 'success',
-        'ComSaidas' => $dadosComSaida,
-        'SemSaidas' => $dadosSemSaida
+        'estadias' => $dados
     );
 
-    if (isset($dadosComSaida) && isset($dadosSemSaida))
+    if (isset($dados))
         $listEstadiasJson = convertJson($headerDados);
     else 
         false;
@@ -89,31 +62,11 @@ function listEstadiaById( $id ) {
         //die; //Finaliza a interpretação da página
     }
 
-    $sql = "select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida and tblEstadia.idEstadia = " . $id;
+    $sql = "select tblCliente.*, tblVeiculo.*, tblEstadia.* from tblCliente, tblVeiculo, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEstadia = " . $id;
     $select = mysqli_query($conex, $sql);
-
-    if (is_null($rsEstadia = mysqli_fetch_assoc($select))) {
-        $sql = "select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida is null and tblEstadia.idEstadia = " . $id;
-        $select = mysqli_query($conex, $sql);
-        if ($rsEstadia = mysqli_fetch_assoc($select)) {
-            $dados[] = array (
-                //          => - o que alimenta o dado de um array
-                'idEstadia'             => $rsEstadia['idEstadia'],
-                'idCliente'             => $rsEstadia['idCliente'],
-                'nome'                  => $rsEstadia['nome'],
-                'idVeiculo'             => $rsEstadia['idVeiculo'],
-                'placa'                 => $rsEstadia['placa'],
-                'marca'                 => $rsEstadia['marca'],
-                'modelo'                => $rsEstadia['modelo'],
-                'idEntrada'             => $rsEstadia['idEntrada'],
-                'dataDeEntrada'         => $rsEstadia['dataDeEntrada'],
-                'horaDeEntrada'         => $rsEstadia['horaDeEntrada'],
-                'idSaida'               => $rsEstadia['idSaida'],
-                'valor'                 => $rsEstadia['valor'],
-                'pago'                  => $rsEstadia['pago']
-            );  
-        }
-    } else {
+    
+    if ($rsEstadia = mysqli_fetch_assoc($select)) {
+      
         $dados[] = array (
             //          => - o que alimenta o dado de um array
             'idEstadia'             => $rsEstadia['idEstadia'],
@@ -123,12 +76,10 @@ function listEstadiaById( $id ) {
             'placa'                 => $rsEstadia['placa'],
             'marca'                 => $rsEstadia['marca'],
             'modelo'                => $rsEstadia['modelo'],
-            'idEntrada'             => $rsEstadia['idEntrada'],
-            'dataDeEntrada'         => $rsEstadia['dataDeEntrada'],
-            'horaDeEntrada'         => $rsEstadia['horaDeEntrada'],
-            'idSaida'               => $rsEstadia['idSaida'],
-            'dataDeSaida'           => $rsEstadia['dataDeSaida'],
-            'horaDeSaida'           => $rsEstadia['horaDeSaida'],
+            'dataDaEntrada'         => $rsEstadia['dataDaEntrada'],
+            'horaDaEntrada'         => $rsEstadia['horaDaEntrada'],
+            'dataDaSaida'           => $rsEstadia['dataDaSaida'],
+            'horaDaSaida'           => $rsEstadia['horaDaSaida'],
             'valor'                 => $rsEstadia['valor'],
             'pago'                  => $rsEstadia['pago']
         );  

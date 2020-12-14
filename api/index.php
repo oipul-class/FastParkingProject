@@ -12,131 +12,6 @@ $app->get('/', function ($request, $response, $args){ // get ('/' = site/api/ (/
 }); 
 
 // GETS --->
-
-// Entradas
-$app->get('/entrada' , function ($request, $response, $args){
-    
-    require_once("../php/apiEntrada.php");
-
-    $listEntradas = listarEntradas(0,"");
-
-    if($listEntradas) { // função para listar todos os contatos 
-        return $response    -> withStatus(200)
-                            -> withHeader('Content-Type', 'application/json')
-                            -> write($listEntradas);
-        //widthStatus (status http)
-        //widthHeader ('Content-Type' , 'application/tipo')
-        //write() escreve na tela
-    }else {
-        return $response    -> withStatus(204);
-    } 
-
-});
-
-$app->get('/entrada/{id}' , function ($request, $response, $args){
-    
-    $id = $args['id'];
-
-    require_once("../php/apiEntrada.php");
-
-    $listEntradas = listarEntradas($id,"");
-
-    if($listEntradas) { // função para listar todos os contatos 
-        return $response    -> withStatus(200)
-                            -> withHeader('Content-Type', 'application/json')
-                            -> write($listEntradas);
-        //widthStatus (status http)
-        //widthHeader ('Content-Type' , 'application/tipo')
-        //write() escreve na tela
-    }else {
-        return $response    -> withStatus(204);
-    } 
-
-});
-
-$app->get('/entrada/placa/{placa}' , function ($request, $response, $args){
-    $placa = (string) null;
-    $placa = $args['placa'];
-    
-    require_once("../php/apiEntrada.php");
-
-    $listEntradas = listarEntradas(0, $placa);
-
-    if($listEntradas) { // função para listar todos os contatos 
-        return $response    -> withStatus(200)
-                            -> withHeader('Content-Type', 'application/json')
-                            -> write($listEntradas);
-        //widthStatus (status http)
-        //widthHeader ('Content-Type' , 'application/tipo')
-        //write() escreve na tela
-    }else {
-        return $response    -> withStatus(204);
-    } 
-
-});
-
-// Saidas
-$app->get('/saida' , function ($request, $response, $args){
-    
-    require_once("../php/apiSaida.php");
-
-    $listSaidas = ListarSaida(0,"");
-
-    if($listSaidas) { // função para listar todos os contatos 
-        return $response    -> withStatus(200)
-                            -> withHeader('Content-Type', 'application/json')
-                            -> write($listSaidas);
-        //widthStatus (status http)
-        //widthHeader ('Content-Type' , 'application/tipo')
-        //write() escreve na tela
-    }else {
-        return $response    -> withStatus(204);
-    } 
-
-});
-
-$app->get('/saida/{id}' , function ($request, $response, $args){
-    
-    $id = $args['id'];
-
-    require_once("../php/apiSaida.php");
-
-    $listSaidas = ListarSaida($id,"");
-
-    if($listSaidas) { // função para listar todos os contatos 
-        return $response    -> withStatus(200)
-                            -> withHeader('Content-Type', 'application/json')
-                            -> write($listSaidas);
-        //widthStatus (status http)
-        //widthHeader ('Content-Type' , 'application/tipo')
-        //write() escreve na tela
-    }else {
-        return $response    -> withStatus(204);
-    } 
-
-});
-
-$app->get('/saida/placa/{placa}' , function ($request, $response, $args){
-    $placa = (string) null;
-    $placa = $args['placa'];
-    
-    require_once("../php/apiSaida.php");
-
-    $listSaidas = ListarSaida(0, $placa);
-
-    if($listSaidas) { // função para listar todos os contatos 
-        return $response    -> withStatus(200)
-                            -> withHeader('Content-Type', 'application/json')
-                            -> write($listSaidas);
-        //widthStatus (status http)
-        //widthHeader ('Content-Type' , 'application/tipo')
-        //write() escreve na tela
-    }else {
-        return $response    -> withStatus(204);
-    } 
-
-});
-
 // Estadias
 $app->get('/estadia' , function ($request, $response, $args){
     
@@ -155,7 +30,7 @@ $app->get('/estadia' , function ($request, $response, $args){
 
 });
 
-$app->get('/estadia/byId/{id}' , function ($request, $response, $args){
+$app->get('/estadia/{id}' , function ($request, $response, $args){
 
     $id = $args['id'];
     
@@ -267,6 +142,7 @@ $app->get('/usuario/{id}', function ($request, $response, $args){
     } 
 });
 
+//preços
 $app->get('/precos', function ($request, $response, $args){
     require_once("../php/apiPreco.php");
 
@@ -281,5 +157,102 @@ $app->get('/precos', function ($request, $response, $args){
     } 
 });
 // <---
+
+//POSTS --->
+//cliente
+$app->post('/cliente', function ($request, $response, $args){
+    
+
+    $contentType = $request->getHeaderLine('Content-Type'); // getHeaderLine permite pegar conteudo sobre o header
+
+    if ($contentType == "application/json") {
+        //recebe todos os dados enviados para a api
+        $dadosJson = $request->getParsedBody(); 
+        
+        if ($dadosJson=="" || $dadosJson==null) {
+
+            return $response    -> withStatus(400)
+                                -> withHeader('Content-Type', 'application/json')
+                                -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Dados enviados não podem ser nulos"
+                                    }
+                                    ');
+
+        }else {
+            //Require das funções
+            require_once("../php/apiCliente.php");
+            
+            
+            //dados inseridos com sucesso
+            $dados = insertCliente($dadosJson);
+            
+            if ($dados) {
+                return $response    -> withStatus(201)
+                                    -> withHeader('Content-Type', 'application/json')
+                                    -> write($dados); 
+            }else { //falha na inserção dos dados
+                return $response    -> withStatus(401)
+                                    -> withHeader('Content-Type', 'application/json')
+                                    -> write('
+                                            {
+                                                "status":"Fail",
+                                                "Message":"Falha ao inserir os dados no BD. Verificar se os dados enviados estão corretos"
+                                            }
+                                            ');
+            }
+        }
+    }
+});
+
+//veiculo
+$app->post('/veiculo', function ($request, $response, $args){
+
+    $contentType = $request->getHeaderLine('Content-Type'); // getHeaderLine permite pegar conteudo sobre o header
+
+    if ($contentType == "application/json") {
+        //recebe todos os dados enviados para a api
+        $dadosJson = $request->getParsedBody(); 
+        
+        if ($dadosJson=="" || $dadosJson==null) {
+
+            return $response    -> withStatus(400)
+                                -> withHeader('Content-Type', 'application/json')
+                                -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Dados enviados não podem ser nulos"
+                                    }
+                                    ');
+
+        }else {
+            //Require das funções
+            require_once("../php/apiCliente.php");
+            
+            
+            //dados inseridos com sucesso
+            $dados = insertCliente($dadosJson);
+            
+            if ($dados) {
+                return $response    -> withStatus(201)
+                                    -> withHeader('Content-Type', 'application/json')
+                                    -> write($dados); 
+            }else { //falha na inserção dos dados
+                return $response    -> withStatus(401)
+                                    -> withHeader('Content-Type', 'application/json')
+                                    -> write('
+                                            {
+                                                "status":"Fail",
+                                                "Message":"Falha ao inserir os dados no BD. Verificar se os dados enviados estão corretos"
+                                            }
+                                            ');
+            }
+        }
+    }
+});
+
+
+//<---
 
 $app->run();

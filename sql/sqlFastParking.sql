@@ -35,30 +35,6 @@ CREATE TABLE IF NOT EXISTS `dbFastParking`.`tblVeiculo` (
   PRIMARY KEY (`idVeiculo`))
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `dbFastParking`.`tblEntrada`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dbFastParking`.`tblEntrada` (
-  `idEntrada` INT NOT NULL AUTO_INCREMENT,
-  `dataDeEntrada` DATE NOT NULL,
-  `horaDeEntrada` TIME NOT NULL,
-  PRIMARY KEY (`idEntrada`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `dbFastParking`.`tblSaida`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dbFastParking`.`tblSaida` (
-  `idSaida` INT NOT NULL AUTO_INCREMENT,
-  `dataDeSaida` DATE NULL,
-  `horaDeSaida` TIME NULL,
-  PRIMARY KEY (`idSaida`))
-ENGINE = InnoDB
-COMMENT = '		';
-
-
 -- -----------------------------------------------------
 -- Table `dbFastParking`.`tblEstadia`
 -- -----------------------------------------------------
@@ -66,15 +42,15 @@ CREATE TABLE IF NOT EXISTS `dbFastParking`.`tblEstadia` (
   `idEstadia` INT NOT NULL AUTO_INCREMENT,
   `idCliente` INT NOT NULL,
   `idVeiculo` INT NOT NULL,
-  `idEntrada` INT NOT NULL,
-  `idSaida` INT NOT NULL,
+  `dataDaEntrada` DATE NOT NULL,
+  `horaDaEntrada` TIME NOT NULL,
+  `dataDaSaida` DATE,
+  `horaDaSaida` TIME,
   `pago` TINYINT NOT NULL,
-  `valor` DOUBLE NULL,
+  `valor` DOUBLE,
   PRIMARY KEY (`idEstadia`),
   INDEX `fk_tblEstadia_tblCliente_idx` (`idCliente` ASC) VISIBLE,
   INDEX `fk_tblEstadia_tblVeiculo1_idx` (`idVeiculo` ASC) VISIBLE,
-  INDEX `fk_tblEstadia_tblEntrada1_idx` (`idEntrada` ASC) VISIBLE,
-  INDEX `fk_tblEstadia_tblSiada1_idx` (`idSaida` ASC) VISIBLE,
   CONSTRAINT `fk_tblEstadia_tblCliente`
     FOREIGN KEY (`idCliente`)
     REFERENCES `dbFastParking`.`tblCliente` (`idCliente`)
@@ -83,16 +59,6 @@ CREATE TABLE IF NOT EXISTS `dbFastParking`.`tblEstadia` (
   CONSTRAINT `fk_tblEstadia_tblVeiculo1`
     FOREIGN KEY (`idVeiculo`)
     REFERENCES `dbFastParking`.`tblVeiculo` (`idVeiculo`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tblEstadia_tblEntrada1`
-    FOREIGN KEY (`idEntrada`)
-    REFERENCES `dbFastParking`.`tblEntrada` (`idEntrada`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tblEstadia_tblSiada1`
-    FOREIGN KEY (`idSaida`)
-    REFERENCES `dbFastParking`.`tblSaida` (`idSaida`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -139,33 +105,16 @@ select * from tblVeiculo;
 update tblVeiculo set
 placa = replace(upper(placa),"-", "");
 
-insert into tblEntrada (dataDeEntrada, horaDeEntrada) values (current_date(), current_time());
-
-select * from tblEntrada;
-
-insert into tblSaida (dataDeSaida, horaDeSaida) values (current_date() , "22:20:30");
-
-select * from tblSaida;
-
-insert into tblEstadia (idCliente, idVeiculo, idEntrada, idSaida, valor, pago) values (1,1,3,3,25.00, false);
+insert into tblEstadia (idCliente, idVeiculo, dataDaEntrada , horaDaEntrada, dataDaSaida, horaDaSaida, valor, pago) values (1,1,current_date(),current_time(), current_date() , "15:20:00" ,25.00, false);
 
 select * from tblEstadia;
 
-delete from tblEstadia where idEstadia = 5;
-
-select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida;
 
 insert into tblPrecos (precoEntrada, precoAdicional) values (12.00 , 5.00);
 
 select * from tblPrecos;
 
-select tblEntrada.idEntrada, tblEntrada.dataDeEntrada, tblEntrada.horaDeEntrada from tblEntrada, tblEstadia, tblVeiculo where tblVeiculo.placa = "	" and tblVeiculo.idVeiculo = tblEstadia.idVeiculo and tblEntrada.idEntrada = tblEstadia.idEntrada;
 
-select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida;
-
-select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida and tblVeiculo.placa = "TEST2T18";
-
-select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida;
 
 select idEntrada from tblEntrada order by idEntrada desc limit 1;
 
@@ -176,4 +125,6 @@ select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from t
 select tblCliente.*, tblVeiculo.*, tblEntrada.*, tblSaida.*, tblEstadia.* from tblCliente, tblVeiculo, tblEntrada, tblSaida, tblEstadia where tblEstadia.idCliente = tblCliente.idCliente and tblEstadia.idVeiculo = tblVeiculo.idVeiculo and tblEstadia.idEntrada = tblEntrada.idEntrada and tblEstadia.idSaida = tblSaida.idSaida and tblVeiculo.placa = 'TEST2T18';
 
 select * from tblVeiculo;
+
+select * from tblPrecos;
 

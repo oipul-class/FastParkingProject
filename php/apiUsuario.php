@@ -84,6 +84,7 @@ function listUsuarioPorId($id) {
 
 }
 
+
 function convertJson($data) {
     header("Content-Type:applicantion/json"); // forçando o cabeçalho do arquivo a ser aplicação do tipo json
     $listJson = json_encode($data); // codificando em json   
