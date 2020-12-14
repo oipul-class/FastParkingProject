@@ -3,6 +3,7 @@
     padding: 0px;
     box-sizing: border-box;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 200;
 }
 
 
@@ -29,6 +30,11 @@
     border: solid 2px #00000020;
     cursor: pointer;
   }
+
+.ocultar{
+    display: none;
+}
+
 
 
 .fullContainer{
@@ -379,4 +385,85 @@ header{
     border: none;
     font-size: 24px;
     border-radius: 30px;
+}
+
+
+#usuarios{
+    width: 100vw;
+    min-height: 200px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.usuariosContainer{
+    width: 100vw;
+    min-height: 300px;
+    overflow: hidden;
+    /* background-color: #0F5585; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border: solid 5px #00000020;
+}
+
+.usuarioFoto, .usuarioOptions{
+    min-width: 45vw;
+    overflow: hidden;
+    min-height: 300px;
+    /* border: solid 3px black; */
+}
+
+.usuarioFoto{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.usuarioIcon, .usuarioNome{
+    min-width: 300px;
+    max-width: 400px;
+    overflow: auto;
+    height: 100%;
+    /* border: solid 2px #0F5585; */
+}
+
+
+.usuarioIcon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.usuarioIcon img {
+    width: 80%;
+    height: 80%;
+}
+
+.usuarioNome{
+    color: #0F5585;
+    padding: 15px;
+}
+
+.usuarioOptions{
+    display: flex;
+    align-items: flex-end;
+}
+
+.containerOptions{
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.containerOptions img{
+    width: 75px;
+    height: 75px;
+    margin-right: 15px;
 }
