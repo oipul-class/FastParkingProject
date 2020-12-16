@@ -110,7 +110,10 @@ entradaDados('saida');
 function createEntrada( dados ) {
     const url = '../api/index.php/estadia';
     const options = {
-        method: 'POST',
+        method: 'POST', 
+        header: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify( dados )
     };
     fetch(url, options ).then(response => console.log(response))
