@@ -130,6 +130,109 @@ function insertEstadia($dados) {
     
 }
 
+function updateEstadia($dados) {
+    require_once('conexaoMysql.php');
+
+    if(!$conex = conexaoMysql())
+    {
+        echo("<script> alert('".ERRO_CONEX_BD_MYSQL."'); </script>");
+        //die; //Finaliza a interpretação da página
+    }
+
+    $idEstadia = (int) null;
+    $nomeDoCliente = (string) null;
+    $placaDoVeiculo = (string) null;
+    $dataDaEntrada = (string) null;
+    $horaDaEntrada = (string) null;
+    $dataDaSaida = (string) null;
+    $horaDaSaida = (string) null;
+    $pago = (bool) null;
+    $valor = (double) null;
+
+    $idEstadia = $dados['idEstadia'];
+    $nomeDoCliente = $dados['nomeDoCliente'];
+    $placaDoVeiculo = $dados['placaDoVeiculo'];
+    $dataDaEntrada = $dados['dataDaEntrada'];
+    $horaDaEntrada = $dados['horaDaEntrada'];
+    $dataDaSaida = $dados['dataDaSaida'];
+    $horaDaSaida = $dados['horaDaSaida'];
+    $pago = $dados['pago'];
+    $valor = $dados['valor'];
+
+
+    if ($idEstadia!=null || $idEstadia!=0) {
+
+        $sql = "update tblEstadia set 
+        
+            nomeDoCliente = '". $nomeDoCliente ."',
+            placaDoVeiculo = '". $placaDoVeiculo ."',
+            dataDaEntrada = '". $dataDaEntrada ."',
+            horaDaEntrada = '". $horaDaEntrada ."',
+            dataDaSaida = '". $dataDaSaida ."',
+            horaDaSaida = '". $horaDaSaida ."',
+            pago = ". $pago .",
+            valor = ". $valor ."
+            where idEstadia = ". $idEstadia ."
+        ";
+
+        if (mysqli_query($conex, $sql))   
+            return convertJson($dados);
+        else
+            return false;
+    } else {
+        return false;
+    }
+    
+
+    
+}
+
+function updateSaidaEstadia($dados) {
+    require_once('conexaoMysql.php');
+
+    if(!$conex = conexaoMysql())
+    {
+        echo("<script> alert('".ERRO_CONEX_BD_MYSQL."'); </script>");
+        //die; //Finaliza a interpretação da página
+    }
+
+    $idEstadia = (int) null;
+    $dataDaSaida = (string) null;
+    $horaDaSaida = (string) null;
+    $pago = (bool) null;
+    $valor = (double) null;
+
+    $idEstadia = $dados['idEstadia'];
+    $dataDaSaida = $dados['dataDaSaida'];
+    $horaDaSaida = $dados['horaDaSaida'];
+    $pago = $dados['pago'];
+    $valor = $dados['valor'];
+
+
+    if ($idEstadia!=null || $idEstadia!=0) {
+
+        $sql = "update tblEstadia set 
+        
+            dataDaSaida = '". $dataDaSaida ."',
+            horaDaSaida = '". $horaDaSaida ."',
+            pago = ". $pago .",
+            valor = ". $valor ."
+            where idEstadia = ". $idEstadia ."
+        ";
+
+        if (mysqli_query($conex, $sql))   
+            return convertJson($dados);
+        else
+            return false;
+    } else {
+        return false;
+    }
+    
+
+    
+}
+
+
 function convertJson($data) {
     header("Content-Type:applicantion/json"); // forçando o cabeçalho do arquivo a ser aplicação do tipo json
     $listJson = json_encode($data); // codificando em json   

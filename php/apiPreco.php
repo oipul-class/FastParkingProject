@@ -41,6 +41,35 @@ function listPreco() {
 
 }
 
+function updatePrecos($dados) {
+    require_once('conexaoMysql.php');
+
+    if(!$conex = conexaoMysql())
+    {
+        echo("<script> alert('".ERRO_CONEX_BD_MYSQL."'); </script>");
+        //die; //Finaliza a interpretação da página
+    }
+
+    $precoEntrada = (double) null;
+    $precoAdicional = (double) null;
+
+    $precoEntrada = $dados['precoEntrada'];
+    $precoAdicional = $dados['precoAdicional'];
+
+        $sql = "update tblPrecos set 
+        
+        precoEntrada = ". $precoEntrada .",
+        precoAdicional = ". $precoAdicional ."
+        where idPreco = 1";
+
+        if (mysqli_query($conex, $sql))   
+            return convertJson($dados);
+        else
+            return false;
+
+    
+}
+
 function convertJson($data) {
     header("Content-Type:applicantion/json"); // forçando o cabeçalho do arquivo a ser aplicação do tipo json
     $listJson = json_encode($data); // codificando em json   
