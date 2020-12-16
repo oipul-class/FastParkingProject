@@ -41,24 +41,31 @@ const preencherSaida = (dados) => {
     // div.classList.add('container1');
     let resultado = null;
 
+    let dataInicio = new Date(dados.dataDaEntrada);
+    let dataFim = new Date(data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate());
+    let diffMilissegundos = dataFim - dataInicio;
+    let diffSegundos = diffMilissegundos / 1000;
+    let diffMinutos = diffSegundos / 60;
+    let diffHoras = diffMinutos / 60;
+    let diffDias = diffHoras / 24;
+    let diffMeses = diffDias / 30;
+
     let hora = data.getHours() -1;
     let dia = data.getDate();
     
     const horaDeEntrada = dados.horaDaEntrada.split(':', 1);
     const dataDeEntrada = dados.dataDaEntrada.split('-',3);
 
-    let diferencaDeHoras = hora - horaDeEntrada;
+    let diferencaDeHoras = horaDeEntrada - hora;
+    console.log(diferencaDeHoras)
     
-    if(dia == dataDeEntrada[2]){
+    if(diffDias == 0){
         resultado = 12 + ((diferencaDeHoras) * 6);
     }else{
-       
         let diferencaDeDias = (dia - dataDeEntrada[2])*24;
-        console.log('dia:' + dia, 'diferença:' + diferencaDeHoras, 'dataDeEntrada:' + dataDeEntrada,);
-        resultado = 12 + ((diferencaDeHoras + diferencaDeDias) * 6)
+        resultado = 12 + ((diferencaDeHoras + diffDias) * 6)
     }
 
-    console.log(dados);
     if(dados.horaDaSaida == null){
         div.innerHTML = `
         <div class="saidaCardContainer">
@@ -69,7 +76,7 @@ const preencherSaida = (dados) => {
                 <h6>Id:${dados.idEstadia}</h6>
             </div>
             <div class="saidaPreco">
-                <h1>R$:` + resultado + `,00</h1>
+                <h1>R$:${resultado},00</h1>
                 <div class="pagarSaida">
                     <button>Calcular</button>
                     <button>Pagar</button>
@@ -111,7 +118,7 @@ function createEntrada( dados ) {
     const url = '../api/index.php/estadia';
     const options = {
         method: 'POST', 
-        header: {
+        headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify( dados )
