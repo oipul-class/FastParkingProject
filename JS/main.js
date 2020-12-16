@@ -1,5 +1,5 @@
 'use strict';
-
+const data = new Date();
 
 
 
@@ -39,12 +39,24 @@ const preencherEntrada = (dados) => {
 const preencherSaida = (dados) => {
     const div = document.createElement('div');
     // div.classList.add('container1');
+    let resultado = null;
 
-    const data = new Date();
     let hora = data.getHours() -1;
+    let dia = data.getDate();
+    
     const horaDeEntrada = dados.horaDaEntrada.split(':', 1);
+    const dataDeEntrada = dados.dataDaEntrada.split('-',3);
 
-    const resultado = 12 + ((hora - horaDeEntrada) * 6);
+    let diferencaDeHoras = hora - horaDeEntrada;
+    
+    if(dia == dataDeEntrada[2]){
+        resultado = 12 + ((diferencaDeHoras) * 6);
+    }else{
+       
+        let diferencaDeDias = (dia - dataDeEntrada[2])*24;
+        console.log('dia:' + dia, 'diferença:' + diferencaDeHoras, 'dataDeEntrada:' + dataDeEntrada,);
+        resultado = 12 + ((diferencaDeHoras + diferencaDeDias) * 6)
+    }
 
     console.log(dados);
     if(dados.horaDaSaida == null){
@@ -58,7 +70,10 @@ const preencherSaida = (dados) => {
             </div>
             <div class="saidaPreco">
                 <h1>R$:` + resultado + `,00</h1>
-                <button>Calcular saída</button>
+                <div class="pagarSaida">
+                    <button>Calcular</button>
+                    <button>Pagar</button>
+                </div>
             </div>
         </div>`
     }
@@ -89,3 +104,39 @@ const saida = (dados) => {
 
 entradaDados('entrada');
 entradaDados('saida');
+
+
+
+function createEntrada( dados ) {
+    const url = '../api/index.php/estadia';
+    const options = {
+        method: 'POST',
+        body: JSON.stringify( dados )
+    };
+    fetch(url, options ).then(response => console.log(response))
+}
+  
+const getDados = () => {
+    const nomeDoCliente = document.querySelector('#entradaNome').value;
+    const placaDoCliente = document.querySelector('#placaCliente').value;
+    const time = data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
+    const dataInsert = data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate();
+
+    const dados = {
+        "nomeDoCliente": nomeDoCliente,
+        "placaDoVeiculo": placaDoCliente,
+        "dataDaEntrada": dataInsert,
+        "horaDaEntrada": time,
+        "pago":0,
+        "valor":0.0
+    };
+    console.log(dados)
+
+
+    createEntrada(dados);
+}
+
+
+
+  
+//   createEntrada(dados);

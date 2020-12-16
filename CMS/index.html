@@ -28,19 +28,19 @@
                 <div class="navegacaoItens">Usuários</div>
             </div>
 
-            <div id="entradaContainer" class="ocultar">
+            <div id="entradaContainer">
                 <div id="entradaWallpaper" class="wallpaperCover">
                     <h2>Gerenciamento de Entrada</h2>
                     <div id="insertEntrada">
                         <div class="lableEntrada">
                             <h1>DIgite a placa do veiculo: </h1>
-                            <input type="text" name="txtEntrada" class=" uppercase">
+                            <input type="text" name="txtEntrada" class=" uppercase" id="placaCliente">
                         </div>
                         <div class="lableEntrada">
                             <h1>DIgite o nome do cliente: </h1>
-                            <input type="text" name="txtEntrada">
+                            <input type="text" name="txtEntrada" id="entradaNome">
                         </div>
-                        <button>Enviar</button>
+                        <button onclick="getDados()">Enviar</button>
                     </div>
                 </div>
                 <div class="containerCard">
@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <div id="saidaContainer">
+            <div id="saidaContainer" class="ocultar">
                 <div id="encontrarRegistros">
                     <div id="pesquisarLable">
                         <h2>Busque registros aqui:</h2>
@@ -57,9 +57,7 @@
                     </div>
                 </div>
 
-                <div id="saidaCards">
-                    
-                </div>
+                <div id="saidaCards"></div>
             </div>
 
 

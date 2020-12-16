@@ -383,15 +383,41 @@ header{
     font-weight: 200;
     font-size: 64px;
 }
-.saidaPreco button{
-    width: inherit;
+
+.pagarSaida{
+    min-width: 300px;
+    max-width: 450px;
+    overflow: hidden;
     height: 50px;
-    background-color: #0F5585;
-    color: #ffffff;
-    border: none;
-    font-size: 24px;
-    border-radius: 30px;
+    /* background-color: #0F5585; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.pagarSaida button{
+    min-width: 200px;
+    max-width: 400px;
+    overflow: hidden;
+    height: 30px;
+    background: none;
+    border: none;
+    background-color: #1e75af;
+    border-radius: 50px;
+    color: #ffffff;
+    border: solid 1px #00000020;
+    transition: all 0.5s;
+}
+
+.pagarSaida button:hover{
+    cursor: pointer;
+    background-color: #479cd4;
+}
+.pagarSaida button:active{
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
 
 
 #usuarios{
