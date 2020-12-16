@@ -63,7 +63,6 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 select * from tblEstadia;
 
-
 /*insert into tblCliente (nome) values("tuts da sildsva");
 
 select* from tblCliente;
@@ -101,3 +100,14 @@ select * from tblPrecos;
 
 insert into tblPrecos(precoEntrada, precoAdicional) values ('12' , '6');
 
+update tblEstadia set
+
+nomeDoCliente = 'Tuts Da Silva',
+placaDoVeiculo = 'TEST7T24',
+dataDaEntrada = '2020-12-14',
+horaDaEntrada = '14:20:30',
+dataDaSaida = '2020-12-14',
+horaDaSaida = '16:20:00',
+pago = 1,
+valor = 25.3
+where idEstadia = 1;

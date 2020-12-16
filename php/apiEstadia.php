@@ -4,8 +4,6 @@
 
 function listAllEstadia() {
 
-    
-
     require_once('conexaoMysql.php');
 
     if(!$conex = conexaoMysql())
