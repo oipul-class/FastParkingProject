@@ -4,6 +4,7 @@
 
 function listAllEstadia() {
 
+    
     require_once('conexaoMysql.php');
 
     if(!$conex = conexaoMysql())
@@ -230,7 +231,33 @@ function updateSaidaEstadia($dados) {
     
 }
 
+function deleteEstadia($id) {
+    require_once('conexaoMysql.php');
 
+    if(!$conex = conexaoMysql())
+    {
+        echo("<script> alert('".ERRO_CONEX_BD_MYSQL."'); </script>");
+        //die; //Finaliza a interpretação da página
+    }
+
+
+    if ($id!=null || $id!=0) {
+
+        $sql = "delete from tblEstadia 
+            where idEstadia = " . $id;
+        
+
+        if (mysqli_query($conex, $sql))   
+            return true;
+        else
+            return false;
+    } else {
+        return false;
+    }
+    
+
+    
+}
 function convertJson($data) {
     header("Content-Type:applicantion/json"); // forçando o cabeçalho do arquivo a ser aplicação do tipo json
     $listJson = json_encode($data); // codificando em json   
