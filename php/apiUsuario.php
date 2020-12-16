@@ -124,30 +124,56 @@ function updateUsuario($dados) {
     $idUsuario = (int) null;
     $nome = (string) null;
     $senha = (string) null;
+    $statusUsuario = (bool) null;
     $nivelAcesso = (int) null;
 
     $idUsuario = $dados['idUsuario'];
     $nome = $dados['nome'];
     $senha = $dados['senha'];
+    $statusUsuario = $dados['statusUsuario'];
     $nivelAcesso = $dados['nivelAcesso'];
 
-    if ($idEstadia!=null || $idEstadia!=0) {
+    if ($idUsuario!=null || $idUsuario!=0) {
 
-        $sql = "update tblEstadia set 
+        $sql = "update tblUsuarios set 
         
-            nomeDoCliente = '". $nomeDoCliente ."',
-            placaDoVeiculo = '". $placaDoVeiculo ."',
-            dataDaEntrada = '". $dataDaEntrada ."',
-            horaDaEntrada = '". $horaDaEntrada ."',
-            dataDaSaida = '". $dataDaSaida ."',
-            horaDaSaida = '". $horaDaSaida ."',
-            pago = ". $pago .",
-            valor = ". $valor ."
-            where idEstadia = ". $idUsuario ."
+            nome = '". $nome ."',
+            senha = '". $senha ."',
+            statusUsuario = ". $statusUsuario .",
+            nivelAcesso = ". $nivelAcesso ."
+            where idUsuario = ". $idUsuario ."
         ";
 
         if (mysqli_query($conex, $sql))   
             return convertJson($dados);
+        else
+            return false;
+    } else {
+        return false;
+    }
+    
+
+    
+}
+
+function deleteUsuario($id) {
+    require_once('conexaoMysql.php');
+
+    if(!$conex = conexaoMysql())
+    {
+        echo("<script> alert('".ERRO_CONEX_BD_MYSQL."'); </script>");
+        //die; //Finaliza a interpretação da página
+    }
+
+
+    if ($id!=null || $id!=0) {
+
+        $sql = "delete from tblUsuarios 
+            where idUsuario = " . $id;
+        
+
+        if (mysqli_query($conex, $sql))   
+            return true;
         else
             return false;
     } else {
