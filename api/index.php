@@ -97,98 +97,6 @@ $app->get('/preco', function ($request, $response, $args){
 // <---
 
 //POSTS --->
-//cliente
-$app->post('/cliente', function ($request, $response, $args){
-    
-
-    $contentType = $request->getHeaderLine('Content-Type'); // getHeaderLine permite pegar conteudo sobre o header
-
-    if ($contentType == "application/json") {
-        //recebe todos os dados enviados para a api
-        $dadosJson = $request->getParsedBody(); 
-        
-        if ($dadosJson=="" || $dadosJson==null) {
-
-            return $response    -> withStatus(400)
-                                -> withHeader('Content-Type', 'application/json')
-                                -> write('
-                                    {
-                                        "status":"Fail",
-                                        "Message":"Dados enviados não podem ser nulos"
-                                    }
-                                    ');
-
-        }else {
-            //Require das funções
-            require_once("../php/apiCliente.php");
-            
-            
-            //dados inseridos com sucesso
-            $dados = insertCliente($dadosJson);
-            
-            if ($dados) {
-                return $response    -> withStatus(201)
-                                    -> withHeader('Content-Type', 'application/json')
-                                    -> write($dados); 
-            }else { //falha na inserção dos dados
-                return $response    -> withStatus(401)
-                                    -> withHeader('Content-Type', 'application/json')
-                                    -> write('
-                                            {
-                                                "status":"Fail",
-                                                "Message":"Falha ao inserir os dados no BD. Verificar se os dados enviados estão corretos"
-                                            }
-                                            ');
-            }
-        }
-    }
-});
-
-//veiculo
-$app->post('/veiculo', function ($request, $response, $args){
-
-    $contentType = $request->getHeaderLine('Content-Type'); // getHeaderLine permite pegar conteudo sobre o header
-
-    if ($contentType == "application/json") {
-        //recebe todos os dados enviados para a api
-        $dadosJson = $request->getParsedBody(); 
-        
-        if ($dadosJson=="" || $dadosJson==null) {
-
-            return $response    -> withStatus(400)
-                                -> withHeader('Content-Type', 'application/json')
-                                -> write('
-                                    {
-                                        "status":"Fail",
-                                        "Message":"Dados enviados não podem ser nulos"
-                                    }
-                                    ');
-
-        }else {
-            //Require das funções
-            require_once("../php/apiVeiculo.php");
-            
-            
-            //dados inseridos com sucesso
-            $dados = insertVeiculo($dadosJson);
-            
-            if ($dados) {
-                return $response    -> withStatus(201)
-                                    -> withHeader('Content-Type', 'application/json')
-                                    -> write($dados); 
-            }else { //falha na inserção dos dados
-                return $response    -> withStatus(401)
-                                    -> withHeader('Content-Type', 'application/json')
-                                    -> write('
-                                            {
-                                                "status":"Fail",
-                                                "Message":"Falha ao inserir os dados no BD. Verificar se os dados enviados estão corretos"
-                                            }
-                                            ');
-            }
-        }
-    }
-});
 
 //Estadia
 $app->post('/estadia', function ($request, $response, $args){
@@ -373,51 +281,8 @@ $app->put('/estadia/saida', function($request, $response, $args){
     }
 });
 
-$app->put('/estadia', function($request, $response, $args){
-    $contentType = $request->getHeaderLine('Content-Type'); // getHeaderLine permite pegar conteudo sobre o header
 
-    if ($contentType == "application/json") {
-        //recebe todos os dados enviados para a api
-        $dadosJson = $request->getParsedBody(); 
-        
-        if ($dadosJson=="" || $dadosJson==null) {
-
-            return $response    -> withStatus(400)
-                                -> withHeader('Content-Type', 'application/json')
-                                -> write('
-                                    {
-                                        "status":"Fail",
-                                        "Message":"Dados enviados não podem ser nulos"
-                                    }
-                                    ');
-
-        }else {
-            //Require das funções
-            require_once("../php/apiEstadia.php");
-            
-            
-            //dados inseridos com sucesso
-            $dados = updateEstadia($dadosJson);
-            
-            if ($dados) {
-                return $response    -> withStatus(201)
-                                    -> withHeader('Content-Type', 'application/json')
-                                    -> write($dados); 
-            }else { //falha na inserção dos dados
-                return $response    -> withStatus(401)
-                                    -> withHeader('Content-Type', 'application/json')
-                                    -> write('
-                                            {
-                                                "status":"Fail",
-                                                "Message":"Falha ao inserir os dados no BD. Verificar se os dados enviados estão corretos"
-                                            }
-                                            ');
-            }
-        }
-    }
-});
-
-//Preços
+//Pre
 $app->put('/preco', function($request, $response, $args){
     $contentType = $request->getHeaderLine('Content-Type'); // getHeaderLine permite pegar conteudo sobre o header
 
