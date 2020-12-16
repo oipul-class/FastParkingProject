@@ -13,7 +13,7 @@ function listAllEstadia() {
         //die; //Finaliza a interpretação da página
     }
 
-    $sql = "select * from tblEstadia";
+    $sql = "select * , datediff(dataDaEntrada , dataDaSaida) as diferencaDeDias, timediff(horaDaSaida , horaDaEntrada) as diferencaDeHoras from tblEstadia";
     $select = mysqli_query($conex, $sql);
     while($rsEstadia = mysqli_fetch_assoc($select)) {
     

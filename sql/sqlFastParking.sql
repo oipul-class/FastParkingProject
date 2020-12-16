@@ -63,6 +63,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 select * from tblEstadia;
 
+insert into tblEstadia(nomeDoCliente, placaDoVeiculo, dataDaEntrada, horaDaEntrada, dataDaSaida, horaDaSaida, pago, valor) values('nome', 'test3t22',current_date(), current_time(),'2020-12-14', '18:20:00', 1, 20.3);
 /*insert into tblCliente (nome) values("tuts da sildsva");
 
 select* from tblCliente;
@@ -111,3 +112,11 @@ horaDaSaida = '16:20:00',
 pago = 1,
 valor = 25.3
 where idEstadia = 1;
+
+select * from tblUsuarios;
+
+select * , datediff(dataDaEntrada , dataDaSaida) as diferencaDeDias, timediff(horaDaSaida , horaDaEntrada) as diferencaDeHoras from tblEstadia;
+
+select timediff(horaDaSaida , horaDaEntrada) from tblestadia;
+	
+select * , timediff(  (concat(dataDaEntrada, " " , horaDaEntrada)) , (concat(dataDaSaida, " " , horaDaSaida)) ) as diferenca from tblEstadia;
