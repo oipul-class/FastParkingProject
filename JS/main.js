@@ -24,7 +24,6 @@ const entradaDados = (option) => {
 const preencherEntrada = (dados) => {
     const div = document.createElement('div');
     div.classList.add('container');
-    console.log(dados);
     div.innerHTML = `
     <div class="entradaCard">
         <div class="entradaNome">
@@ -41,7 +40,6 @@ const preencherEntrada = (dados) => {
 }
 const preencherUsuarios = (dados) => {
     const div = document.createElement('div');
-    console.log(dados);
     div.innerHTML = `
     <div class="usuariosContainer">
         <div class="usuarioFoto">
@@ -72,32 +70,39 @@ const preencherSaida = (dados) => {
     // div.classList.add('container1');
     let resultado = null;
 
-    let dataInicio = new Date(dados.dataDaEntrada);
-    let dataFim = new Date(data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate());
-    let diffMilissegundos = dataFim - dataInicio;
-    let diffSegundos = diffMilissegundos / 1000;
-    let diffMinutos = diffSegundos / 60;
-    let diffHoras = diffMinutos / 60;
-    let diffDias = diffHoras / 24;
-    let diffMeses = diffDias / 30;
+    // let dataInicio = new Date(dados.dataDaEntrada);
+    // let dataFim = new Date(data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate());
+    // let diffMilissegundos = dataFim - dataInicio;
+    // let diffSegundos = diffMilissegundos / 1000;
+    // let diffMinutos = diffSegundos / 60;
+    // let diffHoras = diffMinutos / 60;
+    // let diffDias = diffHoras / 24;
+    // let diffMeses = diffDias / 30;
 
-    let hora = data.getHours() - 1;
-    let dia = data.getDate();
+    // let hora = data.getHours() - 1;
+    // let dia = data.getDate();
 
     const horaDeEntrada = dados.horaDaEntrada.split(':', 1);
     const dataDeEntrada = dados.dataDaEntrada.split('-', 3);
+    let diferenca = dados.diferenca
+    if(diferenca != null)
+        diferenca = dados.diferenca.split(':', 1) - 1;
 
-    let diferencaDeHoras = horaDeEntrada - hora;
-    console.log(diferencaDeHoras)
 
-    if (diffDias == 0) {
-        resultado = 12 + ((diferencaDeHoras) * 6);
-    } else {
-        let diferencaDeDias = (dia - dataDeEntrada[2]) * 24;
-        resultado = 12 + ((diferencaDeHoras + diffDias) * 6)
-    }
+    resultado = 12 + (diferenca *6);
 
-    if (dados.horaDaSaida == null) {
+    // let diferencaDeHoras = horaDeEntrada - hora;
+    // console.log(diferencaDeHoras)
+
+    // if (diffDias == 0) {
+    //     resultado = 12 + ((diferencaDeHoras) * 6);
+    // } else {
+    //     let diferencaDeDias = (dia - dataDeEntrada[2]) * 24;
+    //     resultado = 12 + ((diferencaDeHoras + diffDias) * 6)
+    
+    // }
+
+    if (dados.pago == 0) {
         div.innerHTML = `
         <div class="saidaCardContainer">
             <div class="saidaNome">
@@ -109,7 +114,7 @@ const preencherSaida = (dados) => {
             <div class="saidaPreco">
                 <h1>R$:${resultado},00</h1>
                 <div class="pagarSaida">
-                    <button>Calcular</button>
+                    <button onclick="calcularSaida(${dados.idEstadia})">Calcular</button>
                     <button>Pagar</button>
                 </div>
             </div>
@@ -128,6 +133,7 @@ const preencher = (dados, opcao) => {
         case("entrada"):
             dadosJson = dados.estadias;
             container = document.querySelector('.containerCard');
+            container.innerHTML = "";
 
             dadosJson.forEach(element => {
                 container.appendChild(preencherEntrada(element));
@@ -138,6 +144,7 @@ const preencher = (dados, opcao) => {
         case("saida"):
             dadosJson = dados.estadias;
             container = document.querySelector('#saidaCards');
+            container.innerHTML = "";
         
             dadosJson.forEach(element => {
                 container.appendChild(preencherSaida(element));
@@ -147,6 +154,7 @@ const preencher = (dados, opcao) => {
         case("usuarios"):
             dadosJson = dados.Usuarios;
             container = document.querySelector('#usuarios');
+            container.innerHTML = "";
         
             dadosJson.forEach(element => {
                 container.appendChild(preencherUsuarios(element))
@@ -155,9 +163,34 @@ const preencher = (dados, opcao) => {
     }
 }
 
-entradaDados('entrada');
-entradaDados('saida');
-entradaDados('usuarios');
+
+const calcularSaida = (id) => {
+    const time = data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
+    const dataTime = data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate();
+
+
+    const dados = {
+        "idEstadia": id,
+        "pago": 0,
+        "valor": 0.0,
+        "dataDaSaida":dataTime,
+        "horaDaSaida":time
+    };
+
+    const url = `../api/index.php/estadia/saida`;
+    const options = {
+      method: 'PUT',
+      headers: {
+            'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dados)
+    };
+  
+    fetch(url, options );
+
+    entradaDados('saida');
+
+}
 
 
 
@@ -170,7 +203,7 @@ function createEntrada(dados) {
         },
         body: JSON.stringify(dados)
     };
-    fetch(url, options).then(response => console.log(response))
+    fetch(url, options).then(entradaDados('entrada'));
 }
 
 const getDados = () => {
@@ -187,7 +220,6 @@ const getDados = () => {
         "pago": 0,
         "valor": 0.0
     };
-    console.log(dados)
 
 
     createEntrada(dados);
@@ -205,4 +237,6 @@ const excluirUsuario = (usuarioId) => {
 
 
 
-//   createEntrada(dados);
+entradaDados('entrada');
+entradaDados('saida');
+entradaDados('usuarios');
