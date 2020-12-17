@@ -102,7 +102,7 @@ function insertUsuario($dados) {
     $senha = $dados['senha'];
     $nivelAcesso = $dados['nivelAcesso'];
 
-    $sql = "insert into tblUsuarios ( nome, senha, statusUsuario, nivelAcesso) values('". $nome ."', '". $senha ."', 1, ". $nivelAcesso .")";
+    $sql = "insert into tblUsuarios ( nome, senha, statusUsuario, nivelAcesso) values('". $nome ."', '". $senha ."', 0, ". $nivelAcesso .")";
 
     if (mysqli_query($conex, $sql))   
         return convertJson($dados);

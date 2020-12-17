@@ -140,6 +140,15 @@ $app->post('/estadia', function ($request, $response, $args){
                                             ');
             }
         }
+    } else {
+        return $response    -> withStatus(406)
+                            -> withHeader('Content-Type', 'application/json') 
+                            -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Apenas formato JSON é aceitado
+                                    }
+                                    ');
     }
 });
 
@@ -276,6 +285,15 @@ $app->put('/estadia/saida', function($request, $response, $args){
                                             ');
             }
         }
+    } else {
+        return $response    -> withStatus(406)
+                            -> withHeader('Content-Type', 'application/json') 
+                            -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Apenas formato JSON é aceitado
+                                    }
+                                    ');
     }
 });
 
