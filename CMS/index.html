@@ -12,7 +12,9 @@
     <header>
         <div id="headerContainer">
             <img src="../images/fastParking.png" alt="Logo">
-            <img src="../images/home.svg" alt="Home" id="home">
+            <a href="../index.html">
+                <img src="../images/home.svg" alt="Home" id="home">
+            </a>
         </div>
     </header>
 
@@ -30,17 +32,17 @@
                 <div class="navegacaoItens">Usuários</div>
             </div>
 
-            <div id="entradaContainer" class="ocultar">
+            <div id="entradaContainer">
                 <div id="entradaWallpaper" class="wallpaperCover">
                     <h2>Gerenciamento de Entrada</h2>
                     <div id="insertEntrada">
                         <div class="lableEntrada">
                             <h1>DIgite a placa do veiculo: </h1>
-                            <input type="text" name="txtEntrada" class=" uppercase" id="placaCliente">
+                            <input type="text" name="txtEntrada" class=" uppercase" id="placaCliente" required>
                         </div>
                         <div class="lableEntrada">
                             <h1>DIgite o nome do cliente: </h1>
-                            <input type="text" name="txtEntrada" id="entradaNome">
+                            <input type="text" name="txtEntrada" id="entradaNome" required>
                         </div>
                         <button onclick="getDados()">Enviar</button>
                     </div>
@@ -50,7 +52,7 @@
                 </div>
             </div>
 
-            <div id="saidaContainer">
+            <div id="saidaContainer"  class="ocultar">
                 <div id="encontrarRegistros">
                     <div id="pesquisarLable">
                         <h2>Busque registros aqui:</h2>

@@ -67,40 +67,21 @@ const preencherUsuarios = (dados) => {
 
 const preencherSaida = (dados) => {
     const div = document.createElement('div');
-    // div.classList.add('container1');
-    let resultado = null;
-
-    // let dataInicio = new Date(dados.dataDaEntrada);
-    // let dataFim = new Date(data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate());
-    // let diffMilissegundos = dataFim - dataInicio;
-    // let diffSegundos = diffMilissegundos / 1000;
-    // let diffMinutos = diffSegundos / 60;
-    // let diffHoras = diffMinutos / 60;
-    // let diffDias = diffHoras / 24;
-    // let diffMeses = diffDias / 30;
-
-    // let hora = data.getHours() - 1;
-    // let dia = data.getDate();
 
     const horaDeEntrada = dados.horaDaEntrada.split(':', 1);
     const dataDeEntrada = dados.dataDaEntrada.split('-', 3);
-    let diferenca = dados.diferenca
-    if(diferenca != null)
+    let diferenca = dados.diferenca;
+    let resultado = 12;
+    if(diferenca != null){
         diferenca = dados.diferenca.split(':', 1) - 1;
+        console.log(diferenca);
+    }
 
+    if (diferenca < 0) {
+        diferenca = 0;
+    }
 
-    resultado = 12 + (diferenca *6);
-
-    // let diferencaDeHoras = horaDeEntrada - hora;
-    // console.log(diferencaDeHoras)
-
-    // if (diffDias == 0) {
-    //     resultado = 12 + ((diferencaDeHoras) * 6);
-    // } else {
-    //     let diferencaDeDias = (dia - dataDeEntrada[2]) * 24;
-    //     resultado = 12 + ((diferencaDeHoras + diffDias) * 6)
-    
-    // }
+    resultado += (diferenca *6);
 
     if (dados.pago == 0) {
         div.innerHTML = `
@@ -190,7 +171,7 @@ const calcularSaida = (id) => {
 
     setTimeout(() => {
         entradaDados('saida');
-    }, 500);
+    }, 250);
 }
 
 
@@ -207,7 +188,7 @@ function createEntrada(dados) {
     fetch(url, options);
     setTimeout(() => {
         entradaDados('entrada');
-    }, 1500);
+    }, 250);
 }
 
 const getDados = () => {
@@ -230,12 +211,24 @@ const getDados = () => {
 }
 
 const excluirUsuario = (usuarioId) => {
-    const url = `../api/index.php/usuario/${usuarioId}`;
-    const options = {
-        method: 'DELETE'
-    };
+    if(confirm("Deseja mesmo excluir este usuário?")){
+        const url = `../api/index.php/usuario/${usuarioId}`;
+        const options = {
+            method: 'DELETE'
+        };
 
-    fetch(url, options).then(response => console.log(response));
+        fetch(url, options).then(response => console.log(response));
+        setTimeout(() => {
+            entradaDados('usuarios');
+        }, 250);
+    }
+}
+
+
+const checkInput = (element) => {
+    if(element.value == "") {
+        alert('Sem tempo irmão');
+    }
 }
 
 
