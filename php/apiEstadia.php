@@ -13,7 +13,7 @@ function listAllEstadia() {
         //die; //Finaliza a interpretação da página
     }
 
-    $sql = 'select * , timediff((concat(dataDaEntrada, " " , horaDaEntrada)) , (concat(dataDaSaida, " " , horaDaSaida)) ) as diferenca from tblEstadia';
+    $sql = 'select * , timediff((concat(dataDaSaida, " " , horaDaSaida)) ,   (concat(dataDaEntrada, " " , horaDaEntrada))) as diferenca from tblEstadia';
     $select = mysqli_query($conex, $sql);
     while($rsEstadia = mysqli_fetch_assoc($select)) {
     
@@ -58,7 +58,7 @@ function listEstadiaById( $id ) {
         //die; //Finaliza a interpretação da página
     }
 
-    $sql = 'select * , timediff((concat(dataDaEntrada, " " , horaDaEntrada)) , (concat(dataDaSaida, " " , horaDaSaida)) ) as diferenca from tblEstadia where idEstadia = ' . $id;
+    $sql = 'select * , timediff((concat(dataDaSaida, " " , horaDaSaida)) ,   (concat(dataDaEntrada, " " , horaDaEntrada)) ) as diferenca from tblEstadia where idEstadia = ' . $id;
     $select = mysqli_query($conex, $sql);
     
     if ($rsEstadia = mysqli_fetch_assoc($select)) {
