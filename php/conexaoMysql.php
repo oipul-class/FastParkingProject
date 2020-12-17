@@ -1,6 +1,6 @@
 <?php 
 /********************************************************
-    Objetivo: Configuração para conectar no BD MySql
+    Objetivo: Configuração para conectar no BD MySql    
     Data: 14/12/2020
     Autor: João Lucas
 *********************************************************/

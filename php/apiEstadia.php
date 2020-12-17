@@ -121,7 +121,7 @@ function insertEstadia($dados) {
     $pago = $dados['pago'];
     $valor = $dados['valor'];
 
-    $sql = "insert into tblEstadia (nomeDoCliente, placaDoVeiculo, dataDaEntrada, horaDaEntrada, pago, valor) values('". $nomeDoCliente ."', '". $placaDoVeiculo ."', '". $dataDaEntrada ."', '". $horaDaEntrada ."',  ". $pago .", '". $valor ."')";
+    $sql = "insert into tblEstadia (nomeDoCliente, placaDoVeiculo, dataDaEntrada, horaDaEntrada, pago, valor) values('". $nomeDoCliente ."', upper('". $placaDoVeiculo ."'), '". $dataDaEntrada ."', '". $horaDaEntrada ."',  ". $pago .", '". $valor ."')";
 
     if (mysqli_query($conex, $sql))   
         return convertJson($dados);
