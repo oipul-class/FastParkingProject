@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
@@ -7,38 +7,40 @@
     outline: none;
 }
 
-
 ::-webkit-scrollbar {
     width: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 5px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
     background: #0F5585;
     border-radius: 10px;
     border: solid 2px #00000020;
     transition: all 0.3s;
-  }
-  ::-webkit-scrollbar-thumb:hover {
+}
+
+ ::-webkit-scrollbar-thumb:hover {
     background: #1e75af;
     border-radius: 10px;
     border: solid 2px #00000020;
     cursor: pointer;
-  }
+}
 
-.ocultar{
+.ocultar {
     display: none;
 }
 
-
-
-.fullContainer{
+.fullContainer {
     width: 100%;
     min-height: 300px;
     overflow: hidden;
@@ -46,7 +48,8 @@
     display: flex;
     justify-content: center;
 }
-header{
+
+header {
     width: 100%;
     height: 80px;
     border-bottom: solid 3px #00000020;
@@ -54,7 +57,7 @@ header{
     position: fixed;
 }
 
-#headerContainer{
+#headerContainer {
     width: 100vw;
     height: inherit;
     display: flex;
@@ -65,19 +68,18 @@ header{
     /* background-color: lightcoral; */
 }
 
-#home{
+#home {
     width: 60px;
     height: 60px;
     cursor: pointer;
 }
 
-.wallpaperCover{
+.wallpaperCover {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
 }
-
 
 #mainWallpaper {
     background-image: url(../../images/wallpaper.png);
@@ -91,7 +93,7 @@ header{
     margin: 0 auto;
 }
 
-#mainWallpaper h1{
+#mainWallpaper h1 {
     font-size: 7vh;
     color: white;
     font-weight: 200;
@@ -99,14 +101,14 @@ header{
     user-select: none;
 }
 
-#cmsContainer{
+#cmsContainer {
     width: 100vw;
     min-height: 30vh;
     overflow: hidden;
     /* background-color: aqua; */
 }
 
-#barraDeNavegacao{
+#barraDeNavegacao {
     width: inherit;
     height: 70px;
     display: flex;
@@ -114,10 +116,9 @@ header{
     align-items: center;
     background-color: #0F5585;
     border-bottom: solid 3px #00000020;
-
 }
 
-.navegacaoItens{
+.navegacaoItens {
     width: 20vw;
     height: inherit;
     /* background-color: lawngreen; */
@@ -129,21 +130,25 @@ header{
     user-select: none;
     transition: all 0.5s;
 }
-.navegacaoItens:hover{
+
+.navegacaoItens:hover {
     background-color: #1e75af;
     cursor: pointer;
 }
-.navegacaoItens:active{
+
+.navegacaoItens:active {
     background-color: #ffffff;
     transition: all 0.3s;
 }
-#entradaContainer{
+
+#entradaContainer {
     width: 100vw;
     min-height: 900px;
     overflow: hidden;
     /* background-color: brown; */
 }
-#entradaWallpaper{
+
+#entradaWallpaper {
     background-image: url(../../images/wallpaper_cms.png);
     width: 100vw;
     height: 700px;
@@ -154,13 +159,15 @@ header{
     justify-content: center;
     gap: 25px;
 }
-#entradaWallpaper h2{
+
+#entradaWallpaper h2 {
     color: #ffffff;
     font-size: 5vh;
     font-weight: 100;
     text-align: center;
 }
-#insertEntrada{
+
+#insertEntrada {
     min-width: 80vw;
     overflow: hidden;
     height: 400px;
@@ -170,7 +177,8 @@ header{
     justify-content: space-evenly;
     flex-direction: column;
 }
-.lableEntrada{
+
+.lableEntrada {
     width: inherit;
     height: 100px;
     /* background-color: lawngreen; */
@@ -178,7 +186,8 @@ header{
     justify-content: center;
     align-items: center;
 }
-.lableEntrada h1{
+
+.lableEntrada h1 {
     color: #0F5585;
     font-size: 3vh;
     font-weight: 100;
@@ -190,7 +199,8 @@ header{
     align-items: flex-end;
     justify-content: center;
 }
-.lableEntrada input{
+
+.lableEntrada input {
     width: 40%;
     height: 50px;
     color: #0F5585;
@@ -202,11 +212,12 @@ header{
     /* background: none; */
     border-bottom: solid 3px #0F5585;
 }
-.uppercase{
+
+.uppercase {
     text-transform: uppercase;
 }
 
-#insertEntrada button{
+#insertEntrada button {
     width: 300px;
     height: 50px;
     margin: 0 auto;
@@ -220,24 +231,23 @@ header{
     transition: all 0.5s;
 }
 
-#insertEntrada button:hover{
+#insertEntrada button:hover {
     background-color: #1e75af;
     cursor: pointer;
 }
 
-#insertEntrada button:active{
+#insertEntrada button:active {
     background-color: #ffffff;
     transition: 0.3s;
 }
 
-.containerCard{
+.containerCard {
     width: 100vw;
     height: fit-content;
     /* background-color: #1e75af; */
 }
 
-
-.entradaCard{
+.entradaCard {
     width: inherit;
     min-height: 250px;
     overflow: hidden;
@@ -250,7 +260,8 @@ header{
     /* background-color: lawngreen; */
 }
 
-.entradaNome, .entradaHorario{
+.entradaNome,
+.entradaHorario {
     width: 300px;
     height: 300px;
     /* background-color: lightcoral; */
@@ -259,28 +270,34 @@ header{
     justify-content: center;
     flex-direction: column;
 }
-.entradaNome h1,.entradaHorario h1, .entradaNome h2{
+
+.entradaNome h1,
+.entradaHorario h1,
+.entradaNome h2 {
     font-weight: 200;
     color: #00000090;
 }
-.entradaNome h1{
+
+.entradaNome h1 {
     font-size: 64px;
 }
-.entradaNome h2{
+
+.entradaNome h2 {
     font-size: 24px;
 }
-.entradaHorario{
+
+.entradaHorario {
     width: 30vw;
 }
 
-#saidaContainer{
+#saidaContainer {
     width: 100vw;
     min-height: 300px;
     overflow: hidden;
     /* background-color: #1e75af; */
 }
 
-#encontrarRegistros{
+#encontrarRegistros {
     width: inherit;
     height: 600px;
     display: flex;
@@ -290,7 +307,7 @@ header{
     /* background-color: aqua; */
 }
 
-#pesquisarLable{
+#pesquisarLable {
     width: 80vw;
     height: 300px;
     /* background-color: #fff; */
@@ -300,13 +317,14 @@ header{
     align-items: center;
 }
 
-#pesquisarLable h2{
+#pesquisarLable h2 {
     font-weight: 200;
     font-size: 48px;
     color: #00000090;
     text-align: center;
 }
-#pesquisarLable input{
+
+#pesquisarLable input {
     width: inherit;
     height: 60px;
     border-radius: 30px;
@@ -315,7 +333,8 @@ header{
     border: solid 1px #00000090;
     outline: none;
 }
-#pesquisarLable button{
+
+#pesquisarLable button {
     width: 300px;
     height: 50px;
     border-radius: 30px;
@@ -325,14 +344,14 @@ header{
     font-size: 26px;
 }
 
-#saidaCards{
+#saidaCards {
     width: 100vw;
     min-height: 50px;
     overflow: hidden;
     /* background-color: aqua; */
 }
 
-.saidaCardContainer{
+.saidaCardContainer {
     width: inherit;
     min-height: 250px;
     overflow: hidden;
@@ -346,19 +365,24 @@ header{
     /* background-color: lawngreen; */
 }
 
-.saidaNome h1, .saidaNome h2, .saidaNome h3, .saidaNome h6{
+.saidaNome h1,
+.saidaNome h2,
+.saidaNome h3,
+.saidaNome h6 {
     font-weight: 200;
     color: #00000090;
     display: block;
 }
-.saidaNome h1{
+
+.saidaNome h1 {
     font-size: 64px;
 }
-.saidaNome h2{
+
+.saidaNome h2 {
     font-size: 24px;
 }
 
-.saidaNome{
+.saidaNome {
     width: 70vw;
     height: 300px;
     /* background-color: lightcoral; */
@@ -369,7 +393,7 @@ header{
     flex-direction: column;
 }
 
-.saidaPreco{
+.saidaPreco {
     width: 300px;
     height: 200px;
     /* background-color: lightcoral; */
@@ -378,13 +402,14 @@ header{
     justify-content: space-evenly;
     flex-direction: column;
 }
-.saidaPreco h1{
+
+.saidaPreco h1 {
     color: #00000090;
     font-weight: 200;
     font-size: 64px;
 }
 
-.pagarSaida{
+.pagarSaida {
     min-width: 300px;
     max-width: 450px;
     overflow: hidden;
@@ -395,7 +420,7 @@ header{
     align-items: center;
 }
 
-.pagarSaida button{
+.pagarSaida button {
     min-width: 200px;
     max-width: 400px;
     overflow: hidden;
@@ -409,26 +434,23 @@ header{
     transition: all 0.5s;
 }
 
-.pagarSaida button:hover{
+.pagarSaida button:hover {
     cursor: pointer;
     background-color: #479cd4;
 }
-.pagarSaida button:active{
+
+.pagarSaida button:active {
     cursor: pointer;
     background-color: #ffffff;
 }
 
-
-
-#usuarios{
+#usuarios {
     width: 100vw;
     min-height: 200px;
     overflow: auto;
-    display: none;
-    flex-direction: column;
 }
 
-.usuariosContainer{
+.usuariosContainer {
     width: 100vw;
     min-height: 300px;
     overflow: hidden;
@@ -440,20 +462,22 @@ header{
     border: solid 5px #00000020;
 }
 
-.usuarioFoto, .usuarioOptions{
+.usuarioFoto,
+.usuarioOptions {
     min-width: 45vw;
     overflow: hidden;
     min-height: 300px;
     /* border: solid 3px black; */
 }
 
-.usuarioFoto{
+.usuarioFoto {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.usuarioIcon, .usuarioNome{
+.usuarioIcon,
+.usuarioNome {
     min-width: 300px;
     max-width: 400px;
     overflow: auto;
@@ -461,8 +485,7 @@ header{
     /* border: solid 2px #0F5585; */
 }
 
-
-.usuarioIcon{
+.usuarioIcon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -473,17 +496,17 @@ header{
     height: 80%;
 }
 
-.usuarioNome{
+.usuarioNome {
     color: #0F5585;
     padding: 15px;
 }
 
-.usuarioOptions{
+.usuarioOptions {
     display: flex;
     align-items: flex-end;
 }
 
-.containerOptions{
+.containerOptions {
     width: 100%;
     overflow: auto;
     height: 100%;
@@ -494,8 +517,16 @@ header{
     align-items: flex-end;
 }
 
-.containerOptions img{
+.containerOptions img {
     width: 75px;
     height: 75px;
     margin-right: 15px;
+    transition: all 0.4s;
+    padding: 10px;
+}
+
+.containerOptions img:hover {
+    cursor: pointer;
+    background-color: #479cd4;
+    border-radius: 50px;
 }

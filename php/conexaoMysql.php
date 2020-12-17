@@ -1,8 +1,8 @@
 <?php 
 /********************************************************
     Objetivo: Configuração para conectar no BD MySql
-    Data: 16/09/2020
-    Autor: Marcel
+    Data: 14/12/2020
+    Autor: João Lucas
 *********************************************************/
 
 function conexaoMysql ()

@@ -5,14 +5,18 @@ const data = new Date();
 
 const entradaDados = (option) => {
     let url = "";
-    switch(option){
-        case("entrada"):
+    switch (option) {
+        case ("entrada"):
             url = '../api/index.php/estadia';
             fetch(url).then(response => response.json()).then(data => preencher(data));
             break;
-        case("saida"):
+        case ("saida"):
             url = '../api/index.php/estadia';
             fetch(url).then(response => response.json()).then(data => saida(data));
+            break;
+        case ("usuario"):
+            url = '../api/index.php/usuario';
+            fetch(url).then(response => response.json()).then(data => usuarios(data));
             break;
     }
 }
@@ -35,6 +39,33 @@ const preencherEntrada = (dados) => {
 
     return div;
 }
+const preencherUsuarios = (dados) => {
+    const div = document.createElement('div');
+    console.log(dados);
+    div.innerHTML = `
+    <div class="usuariosContainer">
+        <div class="usuarioFoto">
+            <div class="usuarioIcon">
+                <img src="../images/user.svg" alt="Foto do usuário">
+            </div>
+            <div class="usuarioNome">
+                <h1>${dados.nome}</h1>
+                <h2>Função:${dados.nivelAcesso}</h2>
+            </div>
+        </div>
+        <div class="usuarioOptions">
+            <div class="containerOptions">
+                <img src="../images/view.svg" alt="Foto da option view">
+                <img src="../images/pen.svg" alt="Foto da option edit">
+                <img src="../images/erase.svg" alt="Foto da option erase" onclick="excluirUsuario('${dados.idUsuario}')">
+                <img src="../images/right.svg" alt="Foto da option activate">
+            </div>
+        </div>
+    </div>
+    `;
+
+    return div;
+}
 
 const preencherSaida = (dados) => {
     const div = document.createElement('div');
@@ -50,23 +81,23 @@ const preencherSaida = (dados) => {
     let diffDias = diffHoras / 24;
     let diffMeses = diffDias / 30;
 
-    let hora = data.getHours() -1;
+    let hora = data.getHours() - 1;
     let dia = data.getDate();
-    
+
     const horaDeEntrada = dados.horaDaEntrada.split(':', 1);
-    const dataDeEntrada = dados.dataDaEntrada.split('-',3);
+    const dataDeEntrada = dados.dataDaEntrada.split('-', 3);
 
     let diferencaDeHoras = horaDeEntrada - hora;
     console.log(diferencaDeHoras)
-    
-    if(diffDias == 0){
+
+    if (diffDias == 0) {
         resultado = 12 + ((diferencaDeHoras) * 6);
-    }else{
-        let diferencaDeDias = (dia - dataDeEntrada[2])*24;
+    } else {
+        let diferencaDeDias = (dia - dataDeEntrada[2]) * 24;
         resultado = 12 + ((diferencaDeHoras + diffDias) * 6)
     }
 
-    if(dados.horaDaSaida == null){
+    if (dados.horaDaSaida == null) {
         div.innerHTML = `
         <div class="saidaCardContainer">
             <div class="saidaNome">
@@ -83,8 +114,7 @@ const preencherSaida = (dados) => {
                 </div>
             </div>
         </div>`
-    }
-;
+    };
 
     return div;
 }
@@ -93,7 +123,7 @@ const preencherSaida = (dados) => {
 const preencher = (dados) => {
     const dadosJson = dados.estadias;
     const container = document.querySelector('.containerCard');
-    
+
     dadosJson.forEach(element => {
         container.appendChild(preencherEntrada(element));
     });
@@ -103,29 +133,38 @@ const preencher = (dados) => {
 const saida = (dados) => {
     const dadosJson = dados.estadias;
     const container = document.querySelector('#saidaCards');
-    
+
     dadosJson.forEach(element => {
         container.appendChild(preencherSaida(element));
+    });
+}
+const usuarios = (dados) => {
+    const dadosJson = dados.Usuarios;
+    const container = document.querySelector('#usuarios');
+
+    dadosJson.forEach(element => {
+        container.appendChild(preencherUsuarios(element))
     });
 }
 
 entradaDados('entrada');
 entradaDados('saida');
+entradaDados('usuario');
 
 
 
-function createEntrada( dados ) {
+function createEntrada(dados) {
     const url = '../api/index.php/estadia';
     const options = {
-        method: 'POST', 
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify( dados )
+        body: JSON.stringify(dados)
     };
-    fetch(url, options ).then(response => console.log(response))
+    fetch(url, options).then(response => console.log(response))
 }
-  
+
 const getDados = () => {
     const nomeDoCliente = document.querySelector('#entradaNome').value;
     const placaDoCliente = document.querySelector('#placaCliente').value;
@@ -137,8 +176,8 @@ const getDados = () => {
         "placaDoVeiculo": placaDoCliente,
         "dataDaEntrada": dataInsert,
         "horaDaEntrada": time,
-        "pago":0,
-        "valor":0.0
+        "pago": 0,
+        "valor": 0.0
     };
     console.log(dados)
 
@@ -146,7 +185,16 @@ const getDados = () => {
     createEntrada(dados);
 }
 
+function excluirUsuario(usuarioId) {
+    const url = `../api/index.php/usuario/${usuarioId}`;
+    const options = {
+        method: 'DELETE'
+    };
+
+    fetch(url, options).then(response => console.log(response));
+}
 
 
-  
+
+
 //   createEntrada(dados);
