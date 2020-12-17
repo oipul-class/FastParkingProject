@@ -12,7 +12,9 @@
     <header>
         <div id="headerContainer">
             <img src="../images/fastParking.png" alt="Logo">
-            <img src="../images/home.svg" alt="Home" id="home">
+            <a href="../index.html">
+                <img src="../images/home.svg" alt="Home" id="home">
+            </a>
         </div>
     </header>
 
@@ -36,11 +38,11 @@
                     <div id="insertEntrada">
                         <div class="lableEntrada">
                             <h1>DIgite a placa do veiculo: </h1>
-                            <input type="text" name="txtEntrada" class=" uppercase" id="placaCliente">
+                            <input type="text" name="txtEntrada" class=" uppercase" id="placaCliente" required>
                         </div>
                         <div class="lableEntrada">
                             <h1>DIgite o nome do cliente: </h1>
-                            <input type="text" name="txtEntrada" id="entradaNome">
+                            <input type="text" name="txtEntrada" id="entradaNome" required>
                         </div>
                         <button onclick="getDados()">Enviar</button>
                     </div>
