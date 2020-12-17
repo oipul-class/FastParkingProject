@@ -188,8 +188,9 @@ const calcularSaida = (id) => {
   
     fetch(url, options );
 
-    entradaDados('saida');
-
+    setTimeout(() => {
+        entradaDados('saida');
+    }, 500);
 }
 
 
@@ -203,7 +204,10 @@ function createEntrada(dados) {
         },
         body: JSON.stringify(dados)
     };
-    fetch(url, options).then(entradaDados('entrada'));
+    fetch(url, options);
+    setTimeout(() => {
+        entradaDados('entrada');
+    }, 1500);
 }
 
 const getDados = () => {
