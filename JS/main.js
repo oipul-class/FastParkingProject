@@ -8,15 +8,15 @@ const entradaDados = (option) => {
     switch (option) {
         case ("entrada"):
             url = '../api/index.php/estadia';
-            fetch(url).then(response => response.json()).then(data => preencher(data));
+            fetch(url).then(response => response.json()).then(data => preencher(data, 'entrada'));
             break;
         case ("saida"):
             url = '../api/index.php/estadia';
-            fetch(url).then(response => response.json()).then(data => saida(data));
+            fetch(url).then(response => response.json()).then(data => preencher(data, 'saida'));
             break;
-        case ("usuario"):
+        case ("usuarios"):
             url = '../api/index.php/usuario';
-            fetch(url).then(response => response.json()).then(data => usuarios(data));
+            fetch(url).then(response => response.json()).then(data => preencher(data, 'usuarios'));
             break;
     }
 }
@@ -58,7 +58,7 @@ const preencherUsuarios = (dados) => {
                 <img src="../images/view.svg" alt="Foto da option view">
                 <img src="../images/pen.svg" alt="Foto da option edit">
                 <img src="../images/erase.svg" alt="Foto da option erase" onclick="excluirUsuario('${dados.idUsuario}')">
-                <img src="../images/right.svg" alt="Foto da option activate">
+                <img src="../images/right.svg" alt="Foto da option activate" onclick="ativarUsuario('${dados.idUsuario}')">
             </div>
         </div>
     </div>
@@ -120,36 +120,44 @@ const preencherSaida = (dados) => {
 }
 
 
-const preencher = (dados) => {
-    const dadosJson = dados.estadias;
-    const container = document.querySelector('.containerCard');
+const preencher = (dados, opcao) => {
+    let dadosJson = null;
+    let container = null;
+    switch(opcao){
 
-    dadosJson.forEach(element => {
-        container.appendChild(preencherEntrada(element));
-    });
-}
+        case("entrada"):
+            dadosJson = dados.estadias;
+            container = document.querySelector('.containerCard');
 
+            dadosJson.forEach(element => {
+                container.appendChild(preencherEntrada(element));
+            });
 
-const saida = (dados) => {
-    const dadosJson = dados.estadias;
-    const container = document.querySelector('#saidaCards');
+        break;
 
-    dadosJson.forEach(element => {
-        container.appendChild(preencherSaida(element));
-    });
-}
-const usuarios = (dados) => {
-    const dadosJson = dados.Usuarios;
-    const container = document.querySelector('#usuarios');
-
-    dadosJson.forEach(element => {
-        container.appendChild(preencherUsuarios(element))
-    });
+        case("saida"):
+            dadosJson = dados.estadias;
+            container = document.querySelector('#saidaCards');
+        
+            dadosJson.forEach(element => {
+                container.appendChild(preencherSaida(element));
+            });
+        break;
+            
+        case("usuarios"):
+            dadosJson = dados.Usuarios;
+            container = document.querySelector('#usuarios');
+        
+            dadosJson.forEach(element => {
+                container.appendChild(preencherUsuarios(element))
+            });
+        break;
+    }
 }
 
 entradaDados('entrada');
 entradaDados('saida');
-entradaDados('usuario');
+entradaDados('usuarios');
 
 
 
@@ -185,7 +193,7 @@ const getDados = () => {
     createEntrada(dados);
 }
 
-function excluirUsuario(usuarioId) {
+const excluirUsuario = (usuarioId) => {
     const url = `../api/index.php/usuario/${usuarioId}`;
     const options = {
         method: 'DELETE'
