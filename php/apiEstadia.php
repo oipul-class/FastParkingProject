@@ -13,7 +13,7 @@ function listAllEstadia() {
         //die; //Finaliza a interpretação da página
     }
 
-    $sql = "select * , datediff(dataDaEntrada , dataDaSaida) as diferencaDeDias, timediff(horaDaSaida , horaDaEntrada) as diferencaDeHoras from tblEstadia";
+    $sql = 'select * , timediff((concat(dataDaEntrada, " " , horaDaEntrada)) , (concat(dataDaSaida, " " , horaDaSaida)) ) as diferenca from tblEstadia';
     $select = mysqli_query($conex, $sql);
     while($rsEstadia = mysqli_fetch_assoc($select)) {
     
@@ -26,6 +26,7 @@ function listAllEstadia() {
                 'horaDaEntrada'         => $rsEstadia['horaDaEntrada'],
                 'dataDaSaida'           => $rsEstadia['dataDaSaida'],
                 'horaDaSaida'           => $rsEstadia['horaDaSaida'],
+                'diferenca'             => $rsEstadia['diferenca'],
                 'valor'                 => $rsEstadia['valor'],
                 'pago'                  => $rsEstadia['pago']
             );  
@@ -57,7 +58,7 @@ function listEstadiaById( $id ) {
         //die; //Finaliza a interpretação da página
     }
 
-    $sql = "select * from tblEstadia where idEstadia = " . $id;
+    $sql = 'select * , timediff((concat(dataDaEntrada, " " , horaDaEntrada)) , (concat(dataDaSaida, " " , horaDaSaida)) ) as diferenca from tblEstadia where idEstadia = ' . $id;
     $select = mysqli_query($conex, $sql);
     
     if ($rsEstadia = mysqli_fetch_assoc($select)) {
@@ -71,6 +72,7 @@ function listEstadiaById( $id ) {
             'horaDaEntrada'         => $rsEstadia['horaDaEntrada'],
             'dataDaSaida'           => $rsEstadia['dataDaSaida'],
             'horaDaSaida'           => $rsEstadia['horaDaSaida'],
+            'diferenca'             => $rsEstadia['diferenca'],
             'valor'                 => $rsEstadia['valor'],
             'pago'                  => $rsEstadia['pago']
         );     }
