@@ -102,7 +102,9 @@ function insertUsuario($dados) {
     $senha = $dados['senha'];
     $nivelAcesso = $dados['nivelAcesso'];
 
-    $sql = "insert into tblUsuarios ( nome, senha, statusUsuario, nivelAcesso) values('". $nome ."', '". $senha ."', 0, ". $nivelAcesso .")";
+    $senhaMd5 = md5($senha);
+
+    $sql = "insert into tblUsuarios ( nome, senha, statusUsuario, nivelAcesso) values('". $nome ."', '". $senhaMd5 ."', 0, ". $nivelAcesso .")";
 
     if (mysqli_query($conex, $sql))   
         return convertJson($dados);
@@ -133,12 +135,14 @@ function updateUsuario($dados) {
     $statusUsuario = $dados['statusUsuario'];
     $nivelAcesso = $dados['nivelAcesso'];
 
+    $senhaMd5 = md5($senha);
+
     if ($idUsuario!=null || $idUsuario!=0) {
 
         $sql = "update tblUsuarios set 
         
             nome = '". $nome ."',
-            senha = '". $senha ."',
+            senha = '". $senhaMd5 ."',
             statusUsuario = ". $statusUsuario .",
             nivelAcesso = ". $nivelAcesso ."
             where idUsuario = ". $idUsuario ."

@@ -340,7 +340,7 @@ $app->put('/usuario', function($request, $response, $args){
             }
         }
     }
-});
+})  ;
 
 //Preços
 $app->put('/preco', function($request, $response, $args){
