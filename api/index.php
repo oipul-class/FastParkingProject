@@ -340,7 +340,25 @@ $app->put('/usuario', function($request, $response, $args){
             }
         }
     }
-})  ;
+});
+
+//Usuarios
+$app->put('/usuario/ativarDesativar/{id}', function($request, $response, $args){
+    require_once("../php/apiUsuario.php");
+
+    $id = $args['id'];
+
+    $listUsuario = ativarDesativarUsuario($id);
+
+    if($listUsuario) { // função para listar todos os contatos 
+        return $response    -> withStatus(202)
+                            -> withHeader('Content-Type', 'application/json')
+                            -> write($listUsuario);
+    }else {
+        return $response    -> withStatus(204);
+    }
+    
+});
 
 //Preços
 $app->put('/preco', function($request, $response, $args){
@@ -388,7 +406,7 @@ $app->put('/preco', function($request, $response, $args){
 });
 //<---
 
-//DELETES --->
+//DELETE's --->
 //Usuarios
 $app->delete('/usuario/{id}', function($request, $response, $args){
     

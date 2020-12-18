@@ -188,6 +188,51 @@ function deleteUsuario($id) {
     
 }
 
+function ativarDesativarUsuario($id) {
+    require_once('conexaoMysql.php');
+
+    if(!$conex = conexaoMysql())
+    {
+        echo("<script> alert('".ERRO_CONEX_BD_MYSQL."'); </script>");
+        //die; //Finaliza a interpretação da página
+    }
+
+   
+
+    if ($id!=null || $id!=0) {
+
+        $sql = "select statusUsuario from tblUsuario where idUsuario = " . $id;
+
+        $select = mysqli_query($conex, $sql);
+
+        if ($rsUsuario = mysqli_fetch_assoc($select)) {
+            
+            $status = $rsUsuario['statusUsuario'];
+
+            $sql = "update tblUsuario set
+                    statusUsuario = ". $status==1 ? 1 : 0 . " where idUsuario = " . $id;
+
+            if (mysqli_query($conex, $sql))   
+                if ($status==1)
+                    return "usuario desativado";
+                else
+                    return "usuario ativado";
+            else
+                return false;
+        } else {
+            return false;
+        }
+
+        
+        
+
+        
+    } else {
+        return false;
+    }
+    
+}
+
 function convertJson($data) {
     header("Content-Type:applicantion/json"); // forçando o cabeçalho do arquivo a ser aplicação do tipo json
     $listJson = json_encode($data); // codificando em json   
