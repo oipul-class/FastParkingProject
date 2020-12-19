@@ -207,7 +207,9 @@ $app->post('/usuario/Imagem/{id}', function($request, $response, $args){
         $id = $args['id'];
         $arquivo = $_FILES['foto'];  
 
-        if ($arquivo!=null && $id!="" && $id!=0 && $id!=null){
+        
+
+        if ($arquivo!=null && $arquivo!="" && $id!="" && $id!=0 && $id!=null){
             $listUsuario = inserirFoto($arquivo, $id);
 
                 if($listUsuario) { // função para listar todos os contatos 
@@ -226,7 +228,14 @@ $app->post('/usuario/Imagem/{id}', function($request, $response, $args){
                                         }
                                         ');
         }
-    }
+    } else {
+            return $response    ->withHeader('Content-Type', 'application/json')
+                                -> write('
+                                        {
+                                            "status":"fail",
+                                            "mensagem":"Foto enviada tem que ser por form-data  "
+                                        }
+                                        ');    }
 });
 //<---
 
