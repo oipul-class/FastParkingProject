@@ -21,7 +21,8 @@ function listAllUsuario() {
             'nome'                      => $rsUsuario['nome'],
             'senha'                     => $rsUsuario['senha'],
             'statusUsuario'             => $rsUsuario['statusUsuario'],
-            'nivelAcesso'               => $rsUsuario['nivelAcesso']
+            'nivelAcesso'               => $rsUsuario['nivelAcesso'],
+            'foto'                      => $rsUsuario['foto']
         );  
     } 
     
@@ -63,7 +64,8 @@ function listUsuarioPorId($id) {
             'nome'                      => $rsUsuario['nome'],
             'senha'                     => $rsUsuario['senha'],
             'statusUsuario'             => $rsUsuario['statusUsuario'],
-            'nivelAcesso'               => $rsUsuario['nivelAcesso']
+            'nivelAcesso'               => $rsUsuario['nivelAcesso'],
+            'foto'                      => $rsUsuario['foto']
         );  
     } 
     
@@ -97,6 +99,7 @@ function insertUsuario($dados) {
     $nome = (string) null;
     $senha = (string) null;
     $nivelAcesso = (int) null;
+    $foto = "noImage.png";
 
     $nome = $dados['nome'];
     $senha = $dados['senha'];
@@ -104,7 +107,7 @@ function insertUsuario($dados) {
 
     $senhaMd5 = md5($senha);
 
-    $sql = "insert into tblUsuarios ( nome, senha, statusUsuario, nivelAcesso) values('". $nome ."', '". $senhaMd5 ."', 0, ". $nivelAcesso .")";
+    $sql = "insert into tblUsuarios ( nome, senha, statusUsuario, nivelAcesso, foto) values('". $nome ."', '". $senhaMd5 ."', 0, ". $nivelAcesso ." , '". $foto ."')";
 
     if (mysqli_query($conex, $sql))   
         return convertJson($dados);
@@ -232,6 +235,52 @@ function ativarDesativarUsuario($id) {
     }
     
 }
+
+function inserirFoto($foto , $id) {
+    require_once('conexaoMysql.php');
+
+    if(!$conex = conexaoMysql())
+    {
+        echo("<script> alert('".ERRO_CONEX_BD_MYSQL."'); </script>");
+        //die; //Finaliza a interpretação da página
+    }
+
+    if ($foto!=null && $id!="" && $id!=0 && $id!=null) {
+
+        $sql = "select foto from tblUsuarios where idUsuario = " . $id;
+
+        $select = mysqli_query($conex, $sql);
+
+        if ($rsUsuario = mysqli_fetch_assoc($select)) {
+            require_once("uploadDaFoto.php");
+            
+            $fotoAntiga = $rsUsuario['foto'];
+
+            if ($fotoAntiga!="noImage.png")
+                unlink("../userPictures/" . $fotoAntiga);
+            
+            $fotoNova = uploadFoto($foto); 
+
+
+            $sql = "update tblUsuarios set 
+            
+            foto = '". $fotoNova ."' where idUsuario = " .$id;
+
+            if (mysqli_query($conex, $sql))   
+                return "Foto inserida";
+            else
+                return false;
+        } else {
+            return false;
+        }
+
+        
+    
+    }else {
+        return false;
+    }
+}
+
 
 function convertJson($data) {
     header("Content-Type:applicantion/json"); // forçando o cabeçalho do arquivo a ser aplicação do tipo json
