@@ -211,6 +211,12 @@ function ativarDesativarUsuario($id) {
         if ($rsUsuario = mysqli_fetch_assoc($select)) {
             
             $status = $rsUsuario['statusUsuario'];
+            $sql = null;
+            
+            if ($status==1)
+                $sql = "update tblUsuarios set statusUsuario = 0 where idUsuario = " . $id;
+            else 
+                $sql = "update tblUsuarios set statusUsuario = 1 where idUsuario = " . $id;
 
             $sql = "update tblUsuarios 
                         set statusUsuario = ". $status==1 ? 1 : 0 . " where idUsuario = " . $id;
