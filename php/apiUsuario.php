@@ -201,7 +201,7 @@ function ativarDesativarUsuario($id) {
 
     if ($id!=null || $id!=0) {
 
-        $sql = "select statusUsuario from tblUsuario where idUsuario = " . $id;
+        $sql = "select statusUsuario from tblUsuarios where idUsuario = " . $id;
 
         $select = mysqli_query($conex, $sql);
 
@@ -209,15 +209,15 @@ function ativarDesativarUsuario($id) {
             
             $status = $rsUsuario['statusUsuario'];
 
-            $sql = "update tblUsuario set
-                    statusUsuario = ". $status==1 ? 1 : 0 . " where idUsuario = " . $id;
+            $sql = "update tblUsuarios 
+                        set statusUsuario = ". $status==1 ? 1 : 0 . " where idUsuario = " . $id;
 
-            if (mysqli_query($conex, $sql))   
+            if (mysqli_query($conex, $sql)){
                 if ($status==1)
                     return "usuario desativado";
                 else
                     return "usuario ativado";
-            else
+            }else
                 return false;
         } else {
             return false;

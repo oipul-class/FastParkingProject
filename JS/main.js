@@ -72,7 +72,7 @@ const preencherSaida = (dados) => {
     const dataDeEntrada = dados.dataDaEntrada.split('-', 3);
     let diferenca = dados.diferenca;
     let resultado = 12;
-    if(diferenca != null){
+    if (diferenca != null) {
         diferenca = dados.diferenca.split(':', 1) - 1;
         console.log(diferenca);
     }
@@ -81,7 +81,7 @@ const preencherSaida = (dados) => {
         diferenca = 0;
     }
 
-    resultado += (diferenca *6);
+    resultado += (diferenca * 6);
 
     if (dados.pago == 0) {
         div.innerHTML = `
@@ -109,9 +109,9 @@ const preencherSaida = (dados) => {
 const preencher = (dados, opcao) => {
     let dadosJson = null;
     let container = null;
-    switch(opcao){
+    switch (opcao) {
 
-        case("entrada"):
+        case ("entrada"):
             dadosJson = dados.estadias;
             container = document.querySelector('.containerCard');
             container.innerHTML = "";
@@ -120,27 +120,27 @@ const preencher = (dados, opcao) => {
                 container.appendChild(preencherEntrada(element));
             });
 
-        break;
+            break;
 
-        case("saida"):
+        case ("saida"):
             dadosJson = dados.estadias;
             container = document.querySelector('#saidaCards');
             container.innerHTML = "";
-        
+
             dadosJson.forEach(element => {
                 container.appendChild(preencherSaida(element));
             });
-        break;
-            
-        case("usuarios"):
+            break;
+
+        case ("usuarios"):
             dadosJson = dados.Usuarios;
             container = document.querySelector('#usuarios');
             container.innerHTML = "";
-        
+
             dadosJson.forEach(element => {
                 container.appendChild(preencherUsuarios(element))
             });
-        break;
+            break;
     }
 }
 
@@ -154,20 +154,20 @@ const calcularSaida = (id) => {
         "idEstadia": id,
         "pago": 0,
         "valor": 0.0,
-        "dataDaSaida":dataTime,
-        "horaDaSaida":time
+        "dataDaSaida": dataTime,
+        "horaDaSaida": time
     };
 
     const url = `../api/index.php/estadia/saida`;
     const options = {
-      method: 'PUT',
-      headers: {
+        method: 'PUT',
+        headers: {
             'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(dados)
+        },
+        body: JSON.stringify(dados)
     };
-  
-    fetch(url, options );
+
+    fetch(url, options);
 
     setTimeout(() => {
         entradaDados('saida');
@@ -211,7 +211,7 @@ const getDados = () => {
 }
 
 const excluirUsuario = (usuarioId) => {
-    if(confirm("Deseja mesmo excluir este usuário?")){
+    if (confirm("Deseja mesmo excluir este usuário?")) {
         const url = `../api/index.php/usuario/${usuarioId}`;
         const options = {
             method: 'DELETE'
@@ -224,9 +224,30 @@ const excluirUsuario = (usuarioId) => {
     }
 }
 
+const ativarUsuario = (usuarioId) => {
+    const dados = {
+        "idUsuario": usuarioId
+    };
+    console.log(dados);
+    const url = `../api/index.php/usuario/ativarDesativar/${usuarioId}`;
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+    };
+
+
+    fetch(url, options).then(response => console.log(response));
+    setTimeout(() => {
+        entradaDados('usuarios');
+    }, 250);
+}
+
 
 const checkInput = (element) => {
-    if(element.value == "") {
+    if (element.value == "") {
         alert('Sem tempo irmão');
     }
 }

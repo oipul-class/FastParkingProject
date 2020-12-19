@@ -355,7 +355,7 @@ $app->put('/usuario/ativarDesativar/{id}', function($request, $response, $args){
                             -> withHeader('Content-Type', 'application/json')
                             -> write($listUsuario);
     }else {
-        return $response    -> withStatus(204);
+        return $response    -> withStatus(400);
     }
     
 });
