@@ -196,6 +196,38 @@ $app->post('/usuario', function ($request, $response, $args){
         }
     }
 });
+
+//Imagem
+$app->post('/usuario/Imagem/{id}', function($request, $response, $args){
+    require_once("../php/apiUsuario.php");
+
+    $contentType = $request->getHeaderLine('Content-Type');  
+
+    if (strstr($contentType ,"multipart/form-data")) {
+        $id = $args['id'];
+        $arquivo = $_FILES['foto'];  
+
+        if ($arquivo!=null && $id!="" && $id!=0 && $id!=null){
+            $listUsuario = inserirFoto($arquivo, $id);
+
+                if($listUsuario) { // função para listar todos os contatos 
+                    return $response    -> withStatus(201)
+                                        -> withHeader('Content-Type', 'application/json')
+                                        -> write($listUsuario);
+                }else {
+                    return $response    -> withStatus(400);
+                }
+        } else {
+            return $response    ->withHeader('Content-Type', 'application/json')
+                                -> write('
+                                        {
+                                            "status":"fail",
+                                            "mensagem":"id e foto enviadas não podem ser nulos"
+                                        }
+                                        ');
+        }
+    }
+});
 //<---
 
 //PUT'S --->
@@ -342,7 +374,6 @@ $app->put('/usuario', function($request, $response, $args){
     }
 });
 
-//Usuarios
 $app->put('/usuario/ativarDesativar/{id}', function($request, $response, $args){
     require_once("../php/apiUsuario.php");
 
@@ -351,14 +382,15 @@ $app->put('/usuario/ativarDesativar/{id}', function($request, $response, $args){
     $listUsuario = ativarDesativarUsuario($id);
 
     if($listUsuario) { // função para listar todos os contatos 
-        return $response    -> withStatus(202)
+        return $response    -> withStatus(201)
                             -> withHeader('Content-Type', 'application/json')
                             -> write($listUsuario);
     }else {
-        return $response    -> withStatus(204);
+        return $response    -> withStatus(400);
     }
     
 });
+
 
 //Preços
 $app->put('/preco', function($request, $response, $args){
