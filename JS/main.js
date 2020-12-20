@@ -44,7 +44,7 @@ const preencherUsuarios = (dados) => {
     <div class="usuariosContainer">
         <div class="usuarioFoto">
             <div class="usuarioIcon">
-                <img src="../images/user.svg" alt="Foto do usuário">
+                <img src="../userPictures/${dados.foto}" alt="Foto do usuário">
             </div>
             <div class="usuarioNome">
                 <h1>${dados.nome}</h1>
@@ -53,8 +53,8 @@ const preencherUsuarios = (dados) => {
         </div>
         <div class="usuarioOptions">
             <div class="containerOptions">
-                <img src="../images/view.svg" alt="Foto da option view">
-                <img src="../images/pen.svg" alt="Foto da option edit">
+                <img src="../images/view.svg" alt="Foto da option view" onclick="showModal('visualizar')">
+                <img src="../images/pen.svg" alt="Foto da option edit" onclick="editarUsuario(${dados.idUsuario})">
                 <img src="../images/erase.svg" alt="Foto da option erase" onclick="excluirUsuario('${dados.idUsuario}')">
                 <img src="../images/right.svg" alt="Foto da option activate" onclick="ativarUsuario('${dados.idUsuario}')">
             </div>
@@ -134,7 +134,7 @@ const preencher = (dados, opcao) => {
 
         case ("usuarios"):
             dadosJson = dados.Usuarios;
-            container = document.querySelector('#usuarios');
+            container = document.querySelector('#users');
             container.innerHTML = "";
 
             dadosJson.forEach(element => {
@@ -144,6 +144,81 @@ const preencher = (dados, opcao) => {
     }
 }
 
+const showModal = (option, dados) => {
+    const modal = document.querySelector('#modal');
+    const modalContainer = document.querySelector('#modalContainer');
+    if (modal.classList[0] == "ocultar") {
+        setTimeout(() => {
+            modal.classList.replace("ocultar", "visualizar");
+        }, 500);
+        modalContainer.innerHTML = "";
+        switch (option) {
+            case ("editar"):
+                modalContainer.innerHTML = `
+                <div class="camposEdit">
+                    <label>
+                        Digite o nome:
+                    </label>
+                    <input type="text" placeholder="Nome do Usuário" value="${dados.nome}" id="editName">
+                </div>
+                <div class="camposEdit">
+                    <label>
+                        Digite a senha:
+                    </label>
+                    <input type="password" placeholder="Senha" value="${dados.senha}" id="editPassword">
+                </div>
+                <div class="camposEdit">
+                    <label>
+                        Nível de Acesso:
+                    </label>
+                    <select id="editSelect">
+                        <option value="0">Nenhum</option>
+                        <option value="1">Entrada</option>
+                        <option value="2">Saída</option>
+                        <option value="3">Administrador</option>
+                    </select>
+                </div>
+                <button class="buttonEnviar" onclick="updateUsuario(${dados.idUsuario}, ${dados.statusUsuario})">
+                    Registrar
+                </button>
+                `;
+                break;
+        }
+    }
+}
+
+const editarUsuario = (id) => {
+    const url = `../api/index.php/usuario/${id}`;
+    fetch(url).then(response => response.json()).then(data => showModal("editar", data.Usuriao[0]));
+}
+
+const updateUsuario = (id, statusUsuario) => {
+    const name = document.getElementById('editName').value;
+    const password = document.getElementById('editPassword').value;
+    const nivel = document.querySelector('#editSelect').selectedIndex;
+
+    const dados = {
+        "idUsuario": id,
+        "nome": name,
+        "senha": password,
+        "nivelAcesso": nivel,
+        "statusUsuario": statusUsuario
+    };
+
+    const url = "../api/index.php/usuario";
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+    };
+
+    fetch(url, options).then(response => modal.classList.replace("visualizar", "ocultar"));
+    setTimeout(() => {
+        entradaDados('usuarios');
+    }, 250);
+}
 
 const calcularSaida = (id) => {
     const time = data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
@@ -191,23 +266,42 @@ function createEntrada(dados) {
     }, 250);
 }
 
-const getDados = () => {
-    const nomeDoCliente = document.querySelector('#entradaNome').value;
-    const placaDoCliente = document.querySelector('#placaCliente').value;
-    const time = data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
-    const dataInsert = data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate();
+const getDados = (option) => {
+    let dados = null;
+    switch (option) {
+        case ('entrada'):
+            const nomeDoCliente = document.querySelector('#entradaNome').value;
+            const placaDoCliente = document.querySelector('#placaCliente').value;
+            const time = data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
+            const dataInsert = data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate();
 
-    const dados = {
-        "nomeDoCliente": nomeDoCliente,
-        "placaDoVeiculo": placaDoCliente,
-        "dataDaEntrada": dataInsert,
-        "horaDaEntrada": time,
-        "pago": 0,
-        "valor": 0.0
-    };
+            dados = {
+                "nomeDoCliente": nomeDoCliente,
+                "placaDoVeiculo": placaDoCliente,
+                "dataDaEntrada": dataInsert,
+                "horaDaEntrada": time,
+                "pago": 0,
+                "valor": 0.0
+            };
 
 
-    createEntrada(dados);
+            createEntrada(dados);
+            break;
+        case ('usuario'):
+            const nomeDoUsuario = document.querySelector('#userName').value;
+            const senhaDoUsuario = document.querySelector('#userPassword').value;
+            const nivelDeAcesso = document.querySelector('#userLevel').selectedIndex;
+
+            dados = {
+                "nome": nomeDoUsuario,
+                "senha": senhaDoUsuario,
+                "nivelAcesso": nivelDeAcesso,
+                "foto": "noImage.png"
+            };
+
+            insertUsers(dados);
+            break;
+    }
 }
 
 const excluirUsuario = (usuarioId) => {
@@ -228,7 +322,6 @@ const ativarUsuario = (usuarioId) => {
     const dados = {
         "idUsuario": usuarioId
     };
-    console.log(dados);
     const url = `../api/index.php/usuario/ativarDesativar/${usuarioId}`;
     const options = {
         method: 'PUT',
@@ -250,6 +343,21 @@ const checkInput = (element) => {
     if (element.value == "") {
         alert('Sem tempo irmão');
     }
+}
+const insertUsers = (dados) => {
+    const url = '../api/index.php/usuario';
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+    };
+    fetch(url, options).then(response => console.log(response));
+    setTimeout(() => {
+        entradaDados('usuarios');
+    }, 250);
+    console.log(dados);
 }
 
 
