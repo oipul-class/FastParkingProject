@@ -17,7 +17,11 @@
             </a>
         </div>
     </header>
+    <div id="modal" class="ocultar">
+        <div id="modalContainer">
 
+        </div>
+    </div>
     <div class="fullContainer">
         <div id="mainWallpaper" class="wallpaperCover">
             <h1>O Melhor estacionamento para você</h1>
@@ -44,7 +48,7 @@
                             <h1>DIgite o nome do cliente: </h1>
                             <input type="text" name="txtEntrada" id="entradaNome" required>
                         </div>
-                        <button onclick="getDados()">Enviar</button>
+                        <button onclick="getDados('entrada')">Enviar</button>
                     </div>
                 </div>
                 <div class="containerCard">
@@ -66,6 +70,55 @@
 
 
             <div id="usuarios">
+                <div id="newUser">
+                    <div id="new">
+                        <button>Novo usuário +</button>
+                    </div>
+                    <div id="userInsert">
+                        <h1>Registro de Usuários</h1>
+                        <div class="camposInsert">
+                            <label>
+                                Digite o nome:
+                            </label>
+                            <input type="text" placeholder="Nome do Usuário" id="userName">
+                        </div>
+                        <div class="camposInsert">
+                            <label>
+                                Digite a senha:
+                            </label>
+                            <input type="password" placeholder="Senha" id="userPassword">
+                        </div>
+                        <div class="camposInsert">
+                            <label>
+                                Digite a senha:
+                            </label>
+                            <input type="file">
+                        </div>
+                        <!-- <div class="camposInsert">
+                            <label>
+                                Mande a foto:
+                            </label>
+                            <input type="file" id="teste">
+                        </div> -->
+                        <div class="camposInsert">
+                            <label>
+                                Nível de Acesso:
+                            </label>
+                            <select id="userLevel">
+                                <option value="0">Nenhum</option>
+                                <option value="1">Entrada</option>
+                                <option value="2">Saída</option>
+                                <option value="3">Administrador</option>
+                            </select>
+                        </div>
+
+                        <button onclick="getDados('usuario')" class="buttonEnviar">
+                            Registrar
+                        </button>
+
+                    </div>
+                </div>
+                <div id="users"></div>
             </div>
         </div>
     </div>

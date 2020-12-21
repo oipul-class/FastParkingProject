@@ -40,6 +40,10 @@
     display: none;
 }
 
+.visualizar {
+    display: flex;
+}
+
 .fullContainer {
     width: 100%;
     min-height: 300px;
@@ -479,7 +483,7 @@ header {
 .usuarioIcon,
 .usuarioNome {
     min-width: 300px;
-    max-width: 400px;
+    max-width: 430px;
     overflow: auto;
     height: 100%;
     /* border: solid 2px #0F5585; */
@@ -529,4 +533,142 @@ header {
     cursor: pointer;
     background-color: #479cd4;
     border-radius: 50px;
+}
+
+#newUser {
+    width: 100vw;
+    min-height: 50px;
+    overflow: hidden;
+}
+
+#new {
+    width: 100vw;
+    height: 50px;
+    padding-right: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /* background-color: aqua; */
+}
+
+#new button {
+    width: 200px;
+    height: 50px;
+    /* background-color: aqua; */
+    border: none;
+    font-size: 25px;
+    color: #0F5585;
+    transition: all 0.3s;
+    background: none;
+}
+
+#new button:hover {
+    color: #479cd4;
+    cursor: pointer;
+}
+
+#userInsert {
+    width: 100vw;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    color: #0F5585;
+}
+
+.camposInsert,
+.camposEdit {
+    width: 90vw;
+    height: 50px;
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.camposEdit {
+    width: 50vw;
+    border-bottom: solid 2px #0F558590;
+}
+
+.camposInsert label,
+.camposEdit label {
+    width: 300px;
+    height: inherit;
+    color: #0F5585;
+    /* background-color: #479cd4; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.camposInsert input,
+.camposInsert select,
+.camposEdit input,
+.camposEdit select {
+    min-width: 60vw;
+    height: inherit;
+    color: #0F5585;
+    /* background-color: #479cd4; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    border: none;
+    border-bottom: solid 2px #0F5585;
+}
+
+.camposEdit input,
+.camposEdit select {
+    min-width: 25vw;
+    max-width: 40vw;
+    overflow: hidden;
+}
+
+.buttonEnviar {
+    width: 300px;
+    height: 40px;
+    background-color: #0F5585;
+    color: #ffffff;
+    font-size: 25px;
+    border: none;
+    border-radius: 50px;
+    transition: all 0.3s;
+}
+
+.buttonEnviar:hover {
+    background-color: #1e75af;
+    cursor: pointer;
+}
+
+.buttonEnviar:active {
+    background-color: #479cd4;
+    transition: all 0.1s;
+}
+
+#users {
+    width: fit-content;
+    height: fit-content;
+}
+
+#modal {
+    width: 100vw;
+    height: 100vw;
+    position: fixed;
+    background-color: #00000070;
+    justify-content: center;
+}
+
+#modalContainer {
+    margin-top: 10vh;
+    width: 80vw;
+    height: 80vh;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
