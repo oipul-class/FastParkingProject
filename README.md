@@ -12,3 +12,5 @@ Back-End
   -PHP
 Banco de Dados
   -SQL
+
+Dependencias da API foi criado usando o Composer
