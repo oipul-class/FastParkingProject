@@ -96,7 +96,7 @@ const preencherSaida = (dados) => {
                 <h1>R$:${resultado},00</h1>
                 <div class="pagarSaida">
                     <button onclick="calcularSaida(${dados.idEstadia})">Calcular</button>
-                    <button>Pagar</button>
+                    <button onclick="pagarSaida(${dados.idEstadia}, 1, ${resultado})">Pagar</button>
                 </div>
             </div>
         </div>`
@@ -249,6 +249,34 @@ const calcularSaida = (id) => {
     }, 250);
 }
 
+const pagarSaida = (id, pago, valor) => {
+    const time = data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
+    const dataTime = data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate();
+
+
+    const dados = {
+        "idEstadia": id,
+        "pago": pago,
+        "valor": valor,
+        "dataDaSaida": dataTime,
+        "horaDaSaida": time
+    };
+
+    const url = `../api/index.php/estadia/saida`;
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+    };
+
+    fetch(url, options);
+
+    setTimeout(() => {
+        entradaDados('saida');
+    }, 250);
+}
 
 
 function createEntrada(dados) {
@@ -320,7 +348,7 @@ const excluirUsuario = (usuarioId) => {
 
 const ativarUsuario = (usuarioId) => {
     const dados = {
-        "idUsuario": usuarioId
+        'idUsuario': usuarioId
     };
     const url = `../api/index.php/usuario/ativarDesativar/${usuarioId}`;
     const options = {
@@ -330,6 +358,7 @@ const ativarUsuario = (usuarioId) => {
         },
         body: JSON.stringify(dados)
     };
+    console.log(options)
 
 
     fetch(url, options).then(response => console.log(response));
@@ -360,7 +389,72 @@ const insertUsers = (dados) => {
     console.log(dados);
 }
 
+const atualizarPreco = () => {
+    const precoPorHora = document.getElementById('inputPrecoHora').value;
+    const precoInicial = document.getElementById('inputPrecoInicial').value;
+    const dados = {
+        "precoEntrada": precoInicial.replace(',', "."),
+        "precoAdicional": precoPorHora.replace(',', ".")
+    }
+    const url = '../api/index.php/preco';
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+    };
+    // console.log(dados);
+    fetch(url, options) //.then(response => console.log(response));
 
+}
+
+const inputRelatorio = document.getElementById('relatorioInput');
+
+const filtrarData = () => inputRelatorio.value == inputRelatorio.value;
+
+
+const loadRelatorio = () => {
+    const url = '../api/index.php/estadia';
+    const dataDividida = inputRelatorio.value.split('-', 3);
+
+    fetch(url).then(response => response.json()).then(data => {
+        const dados = data.estadias
+        const porDias = (dados) => dados.dataDaEntrada == inputRelatorio.value;
+        const porMeses = (dados) => dados.dataDaEntrada.split('-', 3)[1] == dataDividida[1];
+        const porAno = (dados) => dados.dataDaEntrada.split('-', 3)[0] == dataDividida[0];
+        const soma = (n1, n2) => n1 + n2;
+        const ganhos = document.querySelectorAll('.ganhos');
+        console.log(ganhos)
+
+
+        const dataPorDias = dados.filter(porDias);
+        const dataPorMeses = dados.filter(porMeses);
+        const dataPorAno = dados.filter(porAno);
+        let totalMeses = calcularValor(dataPorMeses)
+        let totalDias = calcularValor(dataPorDias)
+        let totalAno = calcularValor(dataPorAno)
+
+
+        ganhos[0].innerHTML = `R$:${totalDias.reduce(soma, 0)}`;
+        ganhos[1].innerHTML = `R$:${totalMeses.reduce(soma, 0)}`;
+        ganhos[2].innerHTML = `R$:${totalAno.reduce(soma, 0)}`;
+    });
+}
+
+inputRelatorio.addEventListener('blur', loadRelatorio);
+
+
+const calcularValor = (dados) => {
+    let numeros = [];
+    const soma = (a, b) => a + a;
+
+    for (let i = 0; i <= dados.length - 1; i++) {
+        numeros[i] = parseFloat(dados[i].valor);
+        // console.log(numeros);
+    }
+    return numeros;
+}
 
 
 entradaDados('entrada');

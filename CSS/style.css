@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
@@ -7,30 +7,33 @@
 
 ::-webkit-scrollbar {
     width: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 5px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
     background: #0F5585;
     border-radius: 10px;
     border: solid 2px #00000020;
     transition: all 0.3s;
-  }
-  ::-webkit-scrollbar-thumb:hover {
+}
+
+ ::-webkit-scrollbar-thumb:hover {
     background: #1e75af;
     border-radius: 10px;
     border: solid 2px #00000020;
-  }
+}
 
-
-
-.fullContainer{
+.fullContainer {
     width: 100%;
     min-height: 300px;
     overflow: hidden;
@@ -38,7 +41,8 @@
     display: flex;
     justify-content: center;
 }
-header{
+
+header {
     width: 100%;
     height: 80px;
     border-bottom: solid 3px #00000020;
@@ -46,7 +50,7 @@ header{
     position: fixed;
 }
 
-#headerContainer{
+#headerContainer {
     width: 100vw;
     height: inherit;
     display: flex;
@@ -57,13 +61,13 @@ header{
     /* background-color: lightcoral; */
 }
 
-#headerContainer img{
+#headerContainer img {
     min-width: 10vw;
     overflow: hidden;
     min-height: 5vh;
 }
 
-#loginBox{
+#loginBox {
     min-width: 35vw;
     overflow: hidden;
     height: inherit;
@@ -73,7 +77,7 @@ header{
     /* background-color: lightsalmon; */
 }
 
-#loginBox input{
+#loginBox input {
     border: 0px;
     outline: none;
     background: none;
@@ -84,7 +88,7 @@ header{
     height: 3vh;
 }
 
-#loginBox button{
+#loginBox button {
     min-width: 10vw;
     height: 3vh;
     background-color: #0F5585;
@@ -94,7 +98,15 @@ header{
     border-radius: 50px;
 }
 
+#loginBox button:hover {
+    background-color: #1e75af;
+    cursor: pointer;
+}
 
+#loginBox button:active {
+    background-color: #ffffff;
+    transition: 0.3s;
+}
 
 #mainWallpaper {
     background-repeat: no-repeat;
@@ -112,14 +124,14 @@ header{
     margin: 0 auto;
 }
 
-#mainWallpaper h1{
+#mainWallpaper h1 {
     font-size: 7vh;
     color: white;
     font-weight: 200;
     text-align: center;
 }
 
-#cardContainer{
+#cardContainer {
     width: 100vw;
     min-height: 600px;
     display: flex;
@@ -130,7 +142,7 @@ header{
     /* background-color: lightcoral; */
 }
 
-.card{
+.card {
     width: 300px;
     height: 450px;
     border: solid 1px #00000070;
@@ -143,19 +155,19 @@ header{
     justify-content: start;
 }
 
-.card img{
+.card img {
     width: 150px;
     height: 150px;
 }
 
-.card p{
+.card p {
     color: #00000090;
     font-size: 20px;
 }
 
-#sobreNosContainer{
+#sobreNosContainer {
     width: 100vw;
-    min-height:400px;
+    min-height: 400px;
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
@@ -165,37 +177,38 @@ header{
     margin-bottom: 50px;
 }
 
-#sobreNosText,#sobreNosImage{
+#sobreNosText,
+#sobreNosImage {
     width: 600px;
     height: 750px;
     padding: 10px;
     /* background-color: lightcoral; */
 }
 
-#sobreNosText p{
+#sobreNosText p {
     font-weight: 200;
     font-size: 22px;
     line-height: 70px;
-    color:#00000090;
+    color: #00000090;
     text-align: justify;
 }
 
-#sobreNosText h1{
+#sobreNosText h1 {
     font-weight: 200;
-    color:#000000;
+    color: #000000;
 }
 
-#sobreNosImage{
+#sobreNosImage {
     text-align: end;
 }
 
-#sobreNosImage img{
+#sobreNosImage img {
     width: 450px;
     height: inherit;
     border: solid 2px #00000020;
 }
 
-footer{
+footer {
     min-height: 450px;
     overflow: hidden;
     width: 100%;
@@ -206,7 +219,7 @@ footer{
     flex-direction: column;
 }
 
-#footerContainer{
+#footerContainer {
     width: 100vw;
     height: 200px;
     display: flex;
@@ -217,28 +230,31 @@ footer{
     padding: 0px 50px;
 }
 
-#footerLinha1,#footerLinha2{
+#footerLinha1,
+#footerLinha2 {
     width: inherit;
     height: 100px;
     /* border: solid 2px black; */
     display: flex;
 }
-#footerLinha1{
+
+#footerLinha1 {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
     border-bottom: solid 3px #E9E112;
 }
 
-#footerLinha2{
+#footerLinha2 {
     justify-content: space-between;
     color: #ffffff;
 }
-#footerLinha2 h2{
+
+#footerLinha2 h2 {
     font-weight: 100;
 }
 
-#github{
+#github {
     width: 350px;
     height: 50px;
     display: flex;
@@ -247,7 +263,7 @@ footer{
     align-items: center;
 }
 
-#github img{
+#github img {
     width: 50px;
     height: 50px;
 }

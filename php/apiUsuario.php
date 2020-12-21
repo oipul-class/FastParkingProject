@@ -218,9 +218,6 @@ function ativarDesativarUsuario($id) {
             else 
                 $sql = "update tblUsuarios set statusUsuario = 1 where idUsuario = " . $id;
 
-            $sql = "update tblUsuarios 
-                        set statusUsuario = ". $status==1 ? 1 : 0 . " where idUsuario = " . $id;
-
             if (mysqli_query($conex, $sql)){
                 if ($status==1)
                     return "usuario desativado";

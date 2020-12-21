@@ -30,13 +30,14 @@
     <div class="fullContainer">
         <div id="cmsContainer">
             <div id="barraDeNavegacao">
-                <div class="navegacaoItens">Gerenciamento de Usuários</div>
-                <div class="navegacaoItens">Saída</div>
-                <div class="navegacaoItens">Entrada</div>
-                <div class="navegacaoItens">Usuários</div>
+                <div class="navegacaoItens" onclick="carregarContainer('dados')">Gerenciamento de Dados</div>
+                <div class="navegacaoItens" onclick="carregarContainer('saida')">Saída</div>
+                <div class="navegacaoItens" onclick="carregarContainer('entrada')">Entrada</div>
+                <div class="navegacaoItens" onclick="carregarContainer('usuarios')">Usuários</div>
             </div>
 
-            <div id="entradaContainer" class="ocultar">
+
+            <div id="entradaContainer" class="menuItens ocultar">
                 <div id="entradaWallpaper" class="wallpaperCover">
                     <h2>Gerenciamento de Entrada</h2>
                     <div id="insertEntrada">
@@ -56,7 +57,7 @@
                 </div>
             </div>
 
-            <div id="saidaContainer" class="ocultar">
+            <div id="saidaContainer" class="menuItens ocultar">
                 <div id="encontrarRegistros">
                     <div id="pesquisarLable">
                         <h2>Busque registros aqui:</h2>
@@ -69,7 +70,7 @@
             </div>
 
 
-            <div id="usuarios">
+            <div id="usuarios" class="menuItens ocultar">
                 <div id="newUser">
                     <div id="new">
                         <button>Novo usuário +</button>
@@ -120,9 +121,47 @@
                 </div>
                 <div id="users"></div>
             </div>
+
+            <div id="relatorios" class="menuItens ocultar">
+                <div id="precosContainer">
+                    <div id="precoInicial">
+                        <h1>Preço inicial R$:</h1>
+                        <input type="text" value="12,00" id="inputPrecoInicial">
+                    </div>
+                    <div id="precoPorHora">
+                        <h1>Preço por hora R$:</h1>
+                        <input type="text" value="6,00" id="inputPrecoHora">
+                    </div>
+                    <button class="buttonEnviar" onclick="atualizarPreco()">Atualizar</button>
+                </div>
+                <div id="relatorioContainer">
+                    <h1>Relatório de ganho</h1>
+                    <div id="relatorioLabel">
+                        <label>Insira a data para ver o relatório:</label>
+                        <input type="datetime" id="relatorioInput">
+                    </div>
+                    <table id="tableRelatorio">
+                        <tr class="firstLine">
+                            <td>Diário</td>
+                            <td>Mensal</td>
+                            <td>Anual</td>
+                        </tr>
+                        <tr>
+                            <td class="ganhos">R$:00,00</td>
+                            <td class="ganhos">R$:00,00</td>
+                            <td class="ganhos">R$:00,00</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div id="containerDefault" class="menuItens">
+                <h1>Bem vindo ao CMS</h1>
+            </div>
         </div>
     </div>
     <script src="../JS/main.js"></script>
+    <script src="../JS/menu.js"></script>
 </body>
 
 </html>
