@@ -98,7 +98,7 @@ $app->get('/preco', function ($request, $response, $args){
 // <---
 
 //Criptografia de senha recebida
-$app->get('/senha' ,function ($request, $response, $args){
+$app->post('/senha' ,function ($request, $response, $args){
     
 
     $contentType = $request->getHeaderLine('Content-Type'); // getHeaderLine permite pegar conteudo sobre o header

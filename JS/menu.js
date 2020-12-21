@@ -74,9 +74,24 @@ const logar = () => {
 const verificarUsuario = (dados) => {
     const usuario = document.getElementById('loginUsuario').value;
     const senha = document.getElementById('senhaUsuario').value;
+    const url = 'api/index.php/senha';
+    const data = {
+        "senha": senha
+    }
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+    // console.log(dados);
+    fetch(url, options).then(response => console.log(response));
 
     for (let index = 0; index < dados.length; index++) {
         if (usuario == dados[index].nome) {
+
             // if (senha == dados[index].senha) {
             sessionStorage.setItem('userId', dados[index].idUsuario);
             window.location.href = 'CMS/index.html';
