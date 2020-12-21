@@ -1,7 +1,20 @@
 'use strict';
 const data = new Date();
-let precoInicial;
-let precoPorHora;
+let precoInicial = 12;
+let precoPorHora = 6;
+
+const insertDadosPreco = (dados) => {
+    if (dados==undefined) {
+        const urlPreco = '../api/index.php/preco'
+        fetch(urlPreco).then(response => response.json()).then(data => insertDadosPreco(data.Preco[0]));
+    } else {
+        precoInicial = dados.precoEntrada;
+        precoPorHora = dados.precoAdicional;
+    }
+
+}
+
+insertDadosPreco(undefined);
 
 const entradaDados = (option) => {
     let url = "";
@@ -74,24 +87,15 @@ const preencherUsuarios = (dados) => {
     return div;
 }
 
-const insertDadosPreco = (dados) => {
-    precoInicial = dados.precoEntrada;
-    precoPorHora = dados.precoAdicional;
-    console.log(precoInicial);
-    console.log(precoPorHora);
-}
-
 const preencherSaida = (dados) => {
-    const div = document.createElement('div');
-
-    const urlPreco = '../api/index.php/preco'
-    fetch(urlPreco).then(response => response.json()).then(data => insertDadosPreco(data.Preco[0]));
-
-
+    
+    const div = document.createElement('div')
     const horaDeEntrada = dados.horaDaEntrada.split(':', 1);
     const dataDeEntrada = dados.dataDaEntrada.split('-', 3);
     let diferenca = dados.diferenca;
-    let resultado = 12;
+    let resultado = precoInicial;
+
+    console.log(resultado);
     if (diferenca != null) {
         diferenca = dados.diferenca.split(':', 1) - 1;
     }
@@ -100,8 +104,12 @@ const preencherSaida = (dados) => {
         diferenca = 0;
     }
 
-    resultado += (diferenca * 6);
-
+    const conta = (diferenca * precoPorHora)
+    
+    if (conta!=0) {
+        resultado += resultado + conta
+    }
+    
     if (dados.pago == 0) {
         div.innerHTML = `
         <div class="saidaCardContainer">
@@ -123,6 +131,7 @@ const preencherSaida = (dados) => {
     };
 
     return div;
+    
 }
 
 
