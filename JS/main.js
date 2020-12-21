@@ -45,14 +45,8 @@ const preencherUsuarios = (dados) => {
     <div class="usuariosContainer">
         <div class="usuarioFoto">
             <div class="alterarFoto">
-                <div class="fotoForm">
-                    <div class="usuarioIcon">
-                        <img src="../userPictures/${dados.foto}" alt="Foto do usuário">
-                    </div>
-                    <form action="../api/index.php/usuario/Imagem/1" enctype="multipart/form-data" method="POST">
-                        <input type="file" id="teste" name="foto"  class="enviarFoto">
-                        <input type="submit">
-                    </form>
+                <div class="usuarioIcon">
+                    <img src="../userPictures/${dados.foto}" alt="Foto do usuário">
                 </div>
             </div>
                 <div class="usuarioNome">
@@ -219,6 +213,18 @@ const showModal = (option, dados) => {
                         <option value="2">Saída</option>
                         <option value="3">Administrador</option>
                     </select>
+                </div>
+                <div class="camposEdit">
+                    <label>
+                        Mudar a foto:
+                    </label>
+                    <form action="../api/index.php/usuario/Imagem/${dados.idUsuario}" enctype="multipart/form-data" method="POST">
+                        <div class="enviarFoto">
+                            <label for="fileForm">Clique aqui para enviar uma foto</label>
+                            <input type="file" id="fileForm" name="foto">
+                            <input type="submit">
+                        </div>
+                    </form>
                 </div>
                 <button class="buttonEnviar" onclick="updateUsuario(${dados.idUsuario}, ${dados.statusUsuario})">
                     Registrar
