@@ -14,3 +14,8 @@ Linguagens usadas
   -SQL
 
 Dependencias da API foi criado usando o Composer
+
+
+Membros do grupo:
+  *Gabriel Mochiute de Almeida
+  *joão Lucas Soares Bezerra

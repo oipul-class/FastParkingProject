@@ -40,6 +40,11 @@ const preencherEntrada = (dados) => {
     return div;
 }
 const preencherUsuarios = (dados) => {
+    let imagemStatus = "right.svg";
+    if(dados.statusUsuario == 0){
+        imagemStatus = "right_desativado.svg"
+    }
+
     const div = document.createElement('div');
     div.innerHTML = `
     <div class="usuariosContainer">
@@ -59,7 +64,7 @@ const preencherUsuarios = (dados) => {
             <div class="containerOptions">
                 <img src="../images/pen.svg" alt="Foto da option edit" onclick="editarUsuario(${dados.idUsuario})">
                 <img src="../images/erase.svg" alt="Foto da option erase" onclick="excluirUsuario('${dados.idUsuario}')">
-                <img src="../images/right.svg" alt="Foto da option activate" onclick="ativarUsuario('${dados.idUsuario}')">
+                <img src="../images/${imagemStatus}" alt="Foto da option activate" onclick="ativarUsuario('${dados.idUsuario}')">
             </div>
         </div>
     </div>

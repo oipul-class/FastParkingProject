@@ -87,13 +87,15 @@ const verificarUsuario = (dados) => {
 }
 
 const loginDados = (usuario, senha, dados) => {
+    console.log(dados)
     for (let index = 0; index < dados.length; index++) {
-        if (usuario.toUpperCase() == dados[index].nome.toUpperCase()) {
-            // if (senha == dados[index].senha) {
+        if (usuario.toUpperCase() == dados[index].nome.toUpperCase() && dados[index].statusUsuario == 1) {
+            
+            if (senha == dados[index].senha) {
                 sessionStorage.setItem('userId', dados[index].idUsuario);
                 window.location.href = 'CMS/index.html';
 
-            // }
+            }
         }
     }
 }
