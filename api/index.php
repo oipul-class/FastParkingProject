@@ -64,6 +64,7 @@ $app->get('/usuario', function ($request, $response, $args){
     } 
 });
 
+
 $app->get('/usuario/{id}', function ($request, $response, $args){
     require_once("../php/apiUsuario.php");
 
@@ -95,6 +96,64 @@ $app->get('/preco', function ($request, $response, $args){
     } 
 });
 // <---
+
+//Criptografia de senha recebida
+$app->get('/senha' ,function ($request, $response, $args){
+    
+
+    $contentType = $request->getHeaderLine('Content-Type'); // getHeaderLine permite pegar conteudo sobre o header
+
+    if ($contentType == "application/json") {
+        //recebe todos os dados enviados para a api
+        $dadosJson = $request->getParsedBody(); 
+        
+     
+
+        if ($dadosJson=="" || $dadosJson==null) {
+
+            return $response    -> withStatus(400)
+                                -> withHeader('Content-Type', 'application/json')
+                                -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Dados enviados não podem ser nulos"
+                                    }
+                                    ');
+
+        }else {
+            //Require das funções
+            require_once("../php/criptografarSenha.php");
+            
+            //dados inseridos com sucesso
+            $senha = criptografar($dadosJson['senha']);
+            
+            if ($senha) {
+                return $response    -> withStatus(200)
+                                    -> withHeader('Content-Type', 'application/json')
+                                    -> write($senha); 
+            }else { //falha na inserção dos dados
+                return $response    -> withStatus(400)
+                                    -> withHeader('Content-Type', 'application/json')
+                                    -> write('
+                                            {
+                                                "status":"Fail",
+                                                "Message":"Falha tentando criptografar a senha"
+                                            }
+                                            ');
+            }
+        }
+    } else {
+        return $response    -> withStatus(415)
+                            -> withHeader('Content-Type', 'application/json')
+                            -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Tipo de dados invalidos, apenas Json é aceitado"
+                                    }
+                                    ');
+    }
+
+});
 
 //POST'S --->
 //Estadia
