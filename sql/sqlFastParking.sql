@@ -120,3 +120,11 @@ select * , datediff(dataDaEntrada , dataDaSaida) as diferencaDeDias, timediff(ho
 select timediff(horaDaSaida , horaDaEntrada) from tblestadia;
 	
 select * , timediff(  (concat(dataDaEntrada, " " , horaDaEntrada)) , (concat(dataDaSaida, " " , horaDaSaida)) ) as diferenca from tblEstadia;
+
+alter table tblusuarios add column foto varchar(225) not null;
+
+update tblUsuarios set foto = "noImage.png";
+
+select * from tblusuarios;
+
+insert into tblUsuario(nome, senha, statusUsuario, nivelAcesso, foto) values ("adm", "senha", 1 , 3, "noImage.png");
