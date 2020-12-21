@@ -3,7 +3,7 @@
 const carregarContainer = (option) => {
     const id = sessionStorage.getItem('userId');
     const url = `../api/index.php/usuario/${id}`;
-    fetch(url).then(response => response.json()).then(data => nivelAcesso(data.Usuriao, option));
+    fetch(url).then(response => response.json()).then(data => console.log(data));//nivelAcesso(data.Usuriao, option));
 }
 
 const nivelAcesso = (dados, option) => {
@@ -74,10 +74,12 @@ const logar = () => {
 const verificarUsuario = (dados) => {
     const usuario = document.getElementById('loginUsuario').value;
     const senha = document.getElementById('senhaUsuario').value;
+    console.log(senha);
     const url = 'api/index.php/senha';
     const data = {
         "senha": senha
     }
+
 
     const options = {
         method: 'POST',
@@ -86,9 +88,8 @@ const verificarUsuario = (dados) => {
         },
         body: JSON.stringify(data)
     };
-    // console.log(dados);
-    fetch(url, options).then(response => console.log(response));
-
+    fetch(url, options).then(response => response.json()).then(data => console.log(data));
+    
     for (let index = 0; index < dados.length; index++) {
         if (usuario == dados[index].nome) {
 

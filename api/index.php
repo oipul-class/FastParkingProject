@@ -128,7 +128,7 @@ $app->post('/senha' ,function ($request, $response, $args){
             $senha = criptografar($dadosJson['senha']);
             
             if ($senha) {
-                return $response    -> withStatus(200)
+                return $response    -> withStatus(201)
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write($senha); 
             }else { //falha na inserção dos dados
