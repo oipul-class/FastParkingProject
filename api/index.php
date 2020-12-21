@@ -97,63 +97,6 @@ $app->get('/preco', function ($request, $response, $args){
 });
 // <---
 
-//Criptografia de senha recebida
-$app->post('/senha' ,function ($request, $response, $args){
-    
-
-    $contentType = $request->getHeaderLine('Content-Type'); // getHeaderLine permite pegar conteudo sobre o header
-
-    if ($contentType == "application/json") {
-        //recebe todos os dados enviados para a api
-        $dadosJson = $request->getParsedBody(); 
-        
-     
-
-        if ($dadosJson=="" || $dadosJson==null) {
-
-            return $response    -> withStatus(400)
-                                -> withHeader('Content-Type', 'application/json')
-                                -> write('
-                                    {
-                                        "status":"Fail",
-                                        "Message":"Dados enviados não podem ser nulos"
-                                    }
-                                    ');
-
-        }else {
-            //Require das funções
-            require_once("../php/criptografarSenha.php");
-            
-            //dados inseridos com sucesso
-            $senha = criptografar($dadosJson['senha']);
-            
-            if ($senha) {
-                return $response    -> withStatus(201)
-                                    -> withHeader('Content-Type', 'application/json')
-                                    -> write($senha); 
-            }else { //falha na inserção dos dados
-                return $response    -> withStatus(400)
-                                    -> withHeader('Content-Type', 'application/json')
-                                    -> write('
-                                            {
-                                                "status":"Fail",
-                                                "Message":"Falha tentando criptografar a senha"
-                                            }
-                                            ');
-            }
-        }
-    } else {
-        return $response    -> withStatus(415)
-                            -> withHeader('Content-Type', 'application/json')
-                            -> write('
-                                    {
-                                        "status":"Fail",
-                                        "Message":"Tipo de dados invalidos, apenas Json é aceitado"
-                                    }
-                                    ');
-    }
-
-});
 
 //POST'S --->
 //Estadia
@@ -189,7 +132,7 @@ $app->post('/estadia', function ($request, $response, $args){
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write($dados); 
             }else { //falha na inserção dos dados
-                return $response    -> withStatus(401)
+                return $response    -> withStatus(500)
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write('
                                             {
@@ -200,7 +143,7 @@ $app->post('/estadia', function ($request, $response, $args){
             }
         }
     } else {
-        return $response    -> withStatus(406)
+        return $response    -> withStatus(415)
                             -> withHeader('Content-Type', 'application/json') 
                             -> write('
                                     {
@@ -243,7 +186,7 @@ $app->post('/usuario', function ($request, $response, $args){
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write($dados); 
             }else { //falha na inserção dos dados
-                return $response    -> withStatus(401)
+                return $response    -> withStatus(500)
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write('
                                             {
@@ -253,6 +196,16 @@ $app->post('/usuario', function ($request, $response, $args){
                                             ');
             }
         }
+    }
+    else {
+        return $response    -> withStatus(415)
+                            -> withHeader('Content-Type', 'application/json') 
+                            -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Apenas formato JSON é aceitado
+                                    }
+                                    ');
     }
 });
 
@@ -288,13 +241,72 @@ $app->post('/usuario/Imagem/{id}', function($request, $response, $args){
                                         ');
         }
     } else {
-            return $response    ->withHeader('Content-Type', 'application/json')
+            return $response    -> withHeader('Content-Type', 'application/json')
+                                -> withStatus(415)
                                 -> write('
                                         {
                                             "status":"fail",
                                             "mensagem":"Foto enviada tem que ser por form-data  "
                                         }
                                         ');    }
+});
+
+//Criptografia de senha recebida
+$app->post('/senha' ,function ($request, $response, $args){
+    
+
+    $contentType = $request->getHeaderLine('Content-Type'); // getHeaderLine permite pegar conteudo sobre o header
+
+    if ($contentType == "application/json") {
+        //recebe todos os dados enviados para a api
+        $dadosJson = $request->getParsedBody(); 
+        
+     
+
+        if ($dadosJson=="" || $dadosJson==null) {
+
+            return $response    -> withStatus(400)
+                                -> withHeader('Content-Type', 'application/json')
+                                -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Dados enviados não podem ser nulos"
+                                    }
+                                    ');
+
+        }else {
+            //Require das funções
+            require_once("../php/criptografarSenha.php");
+            
+            //dados inseridos com sucesso
+            $senha = criptografar($dadosJson['senha']);
+            
+            if ($senha) {
+                return $response    -> withStatus(200)
+                                    -> withHeader('Content-Type', 'application/json')
+                                    -> write($senha); 
+            }else { //falha na inserção dos dados
+                return $response    -> withStatus(400)
+                                    -> withHeader('Content-Type', 'application/json')
+                                    -> write('
+                                            {
+                                                "status":"Fail",
+                                                "Message":"Falha tentando criptografar a senha"
+                                            }
+                                            ');
+            }
+        }
+    } else {
+        return $response    -> withStatus(415)
+                            -> withHeader('Content-Type', 'application/json')
+                            -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Tipo de dados invalidos, apenas Json é aceitado"
+                                    }
+                                    ');
+    }
+
 });
 //<---
 
@@ -331,7 +343,7 @@ $app->put('/estadia', function($request, $response, $args){
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write($dados); 
             }else { //falha na inserção dos dados
-                return $response    -> withStatus(401)
+                return $response    -> withStatus(500)
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write('
                                             {
@@ -341,6 +353,16 @@ $app->put('/estadia', function($request, $response, $args){
                                             ');
             }
         }
+    }
+    else {
+        return $response    -> withStatus(415)
+                            -> withHeader('Content-Type', 'application/json') 
+                            -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Apenas formato JSON é aceitado
+                                    }
+                                    ');
     }
 });
 
@@ -375,7 +397,7 @@ $app->put('/estadia/saida', function($request, $response, $args){
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write($dados); 
             }else { //falha na inserção dos dados
-                return $response    -> withStatus(401)
+                return $response    -> withStatus(500)
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write('
                                             {
@@ -386,7 +408,7 @@ $app->put('/estadia/saida', function($request, $response, $args){
             }
         }
     } else {
-        return $response    -> withStatus(406)
+        return $response    -> withStatus(415)
                             -> withHeader('Content-Type', 'application/json') 
                             -> write('
                                     {
@@ -429,7 +451,7 @@ $app->put('/usuario', function($request, $response, $args){
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write($dados); 
             }else { //falha na inserção dos dados
-                return $response    -> withStatus(401)
+                return $response    -> withStatus(500)
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write('
                                             {
@@ -439,6 +461,16 @@ $app->put('/usuario', function($request, $response, $args){
                                             ');
             }
         }
+    }
+    else {
+        return $response    -> withStatus(415)
+                            -> withHeader('Content-Type', 'application/json') 
+                            -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Apenas formato JSON é aceitado
+                                    }
+                                    ');
     }
 });
 
@@ -454,7 +486,14 @@ $app->put('/usuario/ativarDesativar/{id}', function($request, $response, $args){
                             -> withHeader('Content-Type', 'application/json')
                             -> write($listUsuario);
     }else {
-        return $response    -> withStatus(400);
+        return $response    -> withStatus(500)
+                            -> withHeader('Content-Type', 'application/json')
+                            -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Falha ao inserir os dados no BD. Verificar se os dados enviados estão corretos"
+                                    }
+                                    ');
     }
     
 });
@@ -492,7 +531,7 @@ $app->put('/preco', function($request, $response, $args){
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write($dados); 
             }else { //falha na inserção dos dados
-                return $response    -> withStatus(401)
+                return $response    -> withStatus(500)
                                     -> withHeader('Content-Type', 'application/json')
                                     -> write('
                                             {
@@ -502,6 +541,16 @@ $app->put('/preco', function($request, $response, $args){
                                             ');
             }
         }
+    }
+    else {
+        return $response    -> withStatus(415)
+                            -> withHeader('Content-Type', 'application/json') 
+                            -> write('
+                                    {
+                                        "status":"Fail",
+                                        "Message":"Apenas formato JSON é aceitado
+                                    }
+                                    ');
     }
 });
 //<---
