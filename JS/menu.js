@@ -3,7 +3,7 @@
 const carregarContainer = (option) => {
     const id = sessionStorage.getItem('userId');
     const url = `../api/index.php/usuario/${id}`;
-    fetch(url).then(response => response.json()).then(data => console.log(data));//nivelAcesso(data.Usuriao, option));
+    fetch(url).then(response => response.json()).then(data => nivelAcesso(data.Usuriao, option));
 }
 
 const nivelAcesso = (dados, option) => {
@@ -79,8 +79,6 @@ const verificarUsuario = (dados) => {
     const data = {
         "senha": senha
     }
-
-
     const options = {
         method: 'POST',
         headers: {
@@ -88,16 +86,20 @@ const verificarUsuario = (dados) => {
         },
         body: JSON.stringify(data)
     };
-    fetch(url, options).then(response => response.json()).then(data => console.log(data));
-    
+    fetch(url, options).then(response => response.json()).then(data => loginDados(usuario, data.senha, dados));
+}
+
+const loginDados = (usuario, senha, dados) => {
+    console.log(dados);
+    console.log(usuario);
+    console.log(senha);
     for (let index = 0; index < dados.length; index++) {
-        if (usuario == dados[index].nome) {
+        if (usuario.toUpperCase() == dados[index].nome.toUpperCase()) {
+            if (senha == dados[index].senha) {
+                sessionStorage.setItem('userId', dados[index].idUsuario);
+                window.location.href = 'CMS/index.html';
 
-            // if (senha == dados[index].senha) {
-            sessionStorage.setItem('userId', dados[index].idUsuario);
-            window.location.href = 'CMS/index.html';
-
-            // }
+            }
         }
     }
 }

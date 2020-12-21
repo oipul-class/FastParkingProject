@@ -19,7 +19,11 @@
     </header>
     <div id="modal" class="ocultar">
         <div id="modalContainer">
-
+            <div id="modalImg">
+                <button>
+                    <img src="../images/erase.svg" alt="imagem para fechar" onclick="alert('yo')">
+                </button>
+            </div>
         </div>
     </div>
     <div class="fullContainer">
@@ -61,8 +65,8 @@
                 <div id="encontrarRegistros">
                     <div id="pesquisarLable">
                         <h2>Busque registros aqui:</h2>
-                        <input type="text" placeholder="Digite o ID do registro">
-                        <button>Procurar</button>
+                        <input type="text" placeholder="Digite o ID do registro" id="buscarRegistros">
+                        <button onclick="buscarEstadia()">Procurar</button>
                     </div>
                 </div>
 
@@ -73,7 +77,6 @@
             <div id="usuarios" class="menuItens ocultar">
                 <div id="newUser">
                     <div id="new">
-                        <button>Novo usuário +</button>
                     </div>
                     <div id="userInsert">
                         <h1>Registro de Usuários</h1>
@@ -87,14 +90,14 @@
                             <label>
                                 Digite a senha:
                             </label>
-                            <input type="password" placeholder="Senha" id="userPassword">
+                            <input type="password" placeholder="Senha" id="userFile">
                         </div>
-                        <div class="camposInsert">
+                        <!-- <div class="camposInsert">
                             <label>
                                 Digite a senha:
                             </label>
                             <input type="file">
-                        </div>
+                        </div> -->
                         <!-- <div class="camposInsert">
                             <label>
                                 Mande a foto:

@@ -1,7 +1,8 @@
 'use strict';
 const data = new Date();
-
-
+const urlPreco = '../api/index.php/preco'
+fetch(urlPreco).then(response => response.json()).then(data => sessionStorage.setItem('json', data));
+console.log(sessionStorage.getItem('json'));
 
 const entradaDados = (option) => {
     let url = "";
@@ -32,6 +33,7 @@ const preencherEntrada = (dados) => {
         </div>
         <div class="entradaHorario">
             <h1>Horário de Entrada:${dados.horaDaEntrada}</h1>
+            <img src="../images/erase.svg" alt="Foto da option erase" onclick="excluirEstadia('${dados.idEstadia}')" class="excluirEstadia">
         </div>
     </div>
     `;
@@ -53,7 +55,6 @@ const preencherUsuarios = (dados) => {
         </div>
         <div class="usuarioOptions">
             <div class="containerOptions">
-                <img src="../images/view.svg" alt="Foto da option view" onclick="showModal('visualizar')">
                 <img src="../images/pen.svg" alt="Foto da option edit" onclick="editarUsuario(${dados.idUsuario})">
                 <img src="../images/erase.svg" alt="Foto da option erase" onclick="excluirUsuario('${dados.idUsuario}')">
                 <img src="../images/right.svg" alt="Foto da option activate" onclick="ativarUsuario('${dados.idUsuario}')">
@@ -74,7 +75,7 @@ const preencherSaida = (dados) => {
     let resultado = 12;
     if (diferenca != null) {
         diferenca = dados.diferenca.split(':', 1) - 1;
-        console.log(diferenca);
+
     }
 
     if (diferenca < 0) {
@@ -98,6 +99,7 @@ const preencherSaida = (dados) => {
                     <button onclick="calcularSaida(${dados.idEstadia})">Calcular</button>
                     <button onclick="pagarSaida(${dados.idEstadia}, 1, ${resultado})">Pagar</button>
                 </div>
+                <img src="../images/erase.svg" alt="Foto da option erase" onclick="excluirEstadia('${dados.idEstadia}')" class="excluirEstadia">
             </div>
         </div>`
     };
@@ -144,6 +146,23 @@ const preencher = (dados, opcao) => {
     }
 }
 
+const excluirEstadia = (id) => {
+    if (confirm("Deseja mesmo excluir este usuário?")) {
+        const url = `../api/index.php/estadia/${id}`;
+        const options = {
+            method: 'DELETE'
+        };
+
+        fetch(url, options)
+        setTimeout(() => {
+            entradaDados('saida');
+        }, 2000);
+        setTimeout(() => {
+            entradaDados('entrada');
+        }, 2000);
+    }
+}
+
 const showModal = (option, dados) => {
     const modal = document.querySelector('#modal');
     const modalContainer = document.querySelector('#modalContainer');
@@ -155,6 +174,9 @@ const showModal = (option, dados) => {
         switch (option) {
             case ("editar"):
                 modalContainer.innerHTML = `
+                <div id="modalImg">
+                    <img src="../images/erase.svg" alt="imagem para fechar" onclick='fecharModal()'>
+                </div>
                 <div class="camposEdit">
                     <label>
                         Digite o nome:
@@ -182,14 +204,91 @@ const showModal = (option, dados) => {
                     Registrar
                 </button>
                 `;
+                const select = document.getElementById('editSelect');
+                select.selectedIndex = dados.nivelAcesso;
+                break;
+            case ("buscar"):
+                let dataSaida = null;
+                let valor = null;
+                let pago = null;
+                if (dados.dataDaSaida == null || dados.horaDaSaida == null) {
+                    dataSaida = "Não foi atribuida.";
+                    valor = "Não foi atribuido.";
+                    pago = "Não foi pago"
+                } else {
+                    dataSaida = dados.dataDaSaida + ":" +
+                        dados.horaDaSaida;
+                    valor = dados.valor;
+                    pago = "Pago";
+                }
+
+                modalContainer.innerHTML = `
+                    <div id="modalImg">
+                        <img src="../images/erase.svg" alt="imagem para fechar" onclick='fecharModal()'>
+                    </div>
+                    <div class="camposEdit">
+                        <label>
+                            Id da Estadia:
+                        </label>
+                        <h1>${dados.idEstadia}</h1>
+                    </div>
+                    <div class="camposEdit">
+                        <label>
+                            Placa do Cliente:
+                        </label>
+                        <h1>${dados.placaDoVeiculo}</h1>
+                    </div>
+                    <div class="camposEdit">
+                        <label>
+                            Nome do Cliente:
+                        </label>
+                        <h1>${dados.nomeDoCliente}</h1>
+                    </div>
+                    <div class="camposEdit">
+                        <label>
+                            Hora e data da entrada:
+                        </label>
+                        <h1>${dados.dataDaEntrada}:${dados.horaDaEntrada}</h1>
+                    </div>
+                    <div class="camposEdit">
+                        <label>
+                            Hora e data da saida:
+                        </label>
+                        <h1>${dataSaida}</h1>
+                    </div>
+                    <div class="camposEdit">
+                        <label>
+                            Valor da a ser pago:
+                        </label>
+                        <h1>${valor}</h1>
+                    </div>
+                    <div class="camposEdit">
+                        <label>
+                            Se foi pago:
+                        </label>
+                        <h1>${pago}</h1>
+                    </div>`;
                 break;
         }
     }
 }
 
+const fecharModal = () => {
+    const modal = document.querySelector('#modal');
+    setTimeout(() => {
+        modal.classList.replace("visualizar", "ocultar");
+    }, 100);
+}
+
 const editarUsuario = (id) => {
     const url = `../api/index.php/usuario/${id}`;
     fetch(url).then(response => response.json()).then(data => showModal("editar", data.Usuriao[0]));
+}
+
+const buscarEstadia = () => {
+    const id = document.getElementById('buscarRegistros').value;
+    const url = `../api/index.php/estadia/${id}`;
+    fetch(url).then(response => response.json()).then(data => showModal("buscar", data.Encontrado[0]));
 }
 
 const updateUsuario = (id, statusUsuario) => {
@@ -292,6 +391,9 @@ function createEntrada(dados) {
     setTimeout(() => {
         entradaDados('entrada');
     }, 250);
+    setTimeout(() => {
+        entradaDados('saida');
+    }, 2000);
 }
 
 const getDados = (option) => {
@@ -339,10 +441,11 @@ const excluirUsuario = (usuarioId) => {
             method: 'DELETE'
         };
 
-        fetch(url, options).then(response => console.log(response));
-        setTimeout(() => {
-            entradaDados('usuarios');
-        }, 250);
+        fetch(url, options).then(
+            setTimeout(() => {
+                entradaDados('saida');
+            }, 450));
+
     }
 }
 
