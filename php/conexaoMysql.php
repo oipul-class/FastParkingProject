@@ -21,7 +21,7 @@ function conexaoMysql ()
     /*Variaveis para conexão com o BD*/
     $server = (string) "localhost";
     $user = (string) "root";
-    $password = (string) "Katanazero16";
+    $password = (string) "bcd127";
     $dataBase = (string) "dbfastparking";
 
     /*Cria a conexão com o BD MySQL*/

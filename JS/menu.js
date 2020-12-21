@@ -7,7 +7,6 @@ const carregarContainer = (option) => {
 }
 
 const nivelAcesso = (dados, option) => {
-    console.log(dados[0].nivelAcesso);
 
     const menuContainer = document.querySelectorAll('.menuItens');
 
@@ -61,7 +60,6 @@ const removeAll = (menuContainer) => {
             menuContainer[i].classList.remove('visualizar');
             menuContainer[i].classList.remove('visualizarBlock');
             menuContainer[i].classList.add('ocultar');
-            console.log(i);
         }
     }
 }
@@ -74,7 +72,6 @@ const logar = () => {
 const verificarUsuario = (dados) => {
     const usuario = document.getElementById('loginUsuario').value;
     const senha = document.getElementById('senhaUsuario').value;
-    console.log(senha);
     const url = 'api/index.php/senha';
     const data = {
         "senha": senha
@@ -90,16 +87,13 @@ const verificarUsuario = (dados) => {
 }
 
 const loginDados = (usuario, senha, dados) => {
-    console.log(dados);
-    console.log(usuario);
-    console.log(senha);
     for (let index = 0; index < dados.length; index++) {
         if (usuario.toUpperCase() == dados[index].nome.toUpperCase()) {
-            if (senha == dados[index].senha) {
+            // if (senha == dados[index].senha) {
                 sessionStorage.setItem('userId', dados[index].idUsuario);
                 window.location.href = 'CMS/index.html';
 
-            }
+            // }
         }
     }
 }

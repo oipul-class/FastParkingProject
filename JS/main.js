@@ -1,8 +1,7 @@
 'use strict';
 const data = new Date();
-const urlPreco = '../api/index.php/preco'
-fetch(urlPreco).then(response => response.json()).then(data => sessionStorage.setItem('json', data));
-console.log(sessionStorage.getItem('json'));
+let precoInicial;
+let precoPorHora;
 
 const entradaDados = (option) => {
     let url = "";
@@ -45,13 +44,22 @@ const preencherUsuarios = (dados) => {
     div.innerHTML = `
     <div class="usuariosContainer">
         <div class="usuarioFoto">
-            <div class="usuarioIcon">
-                <img src="../userPictures/${dados.foto}" alt="Foto do usuário">
+            <div class="alterarFoto">
+                <div class="fotoForm">
+                    <div class="usuarioIcon">
+                        <img src="../userPictures/${dados.foto}" alt="Foto do usuário">
+                    </div>
+                    <form action="../api/index.php/usuario/Imagem/1" enctype="multipart/form-data" method="POST">
+                        <input type="file" id="teste" name="foto"  class="enviarFoto">
+                        <input type="submit">
+                    </form>
+                </div>
             </div>
-            <div class="usuarioNome">
-                <h1>${dados.nome}</h1>
-                <h2>Função:${dados.nivelAcesso}</h2>
-            </div>
+                <div class="usuarioNome">
+                    <h1>${dados.nome}</h1>
+                    <h2>Função:${dados.nivelAcesso}</h2>
+                </div>
+            
         </div>
         <div class="usuarioOptions">
             <div class="containerOptions">
@@ -66,8 +74,19 @@ const preencherUsuarios = (dados) => {
     return div;
 }
 
+const insertDadosPreco = (dados) => {
+    precoInicial = dados.precoEntrada;
+    precoPorHora = dados.precoAdicional;
+    console.log(precoInicial);
+    console.log(precoPorHora);
+}
+
 const preencherSaida = (dados) => {
     const div = document.createElement('div');
+
+    const urlPreco = '../api/index.php/preco'
+    fetch(urlPreco).then(response => response.json()).then(data => insertDadosPreco(data.Preco[0]));
+
 
     const horaDeEntrada = dados.horaDaEntrada.split(':', 1);
     const dataDeEntrada = dados.dataDaEntrada.split('-', 3);
@@ -75,7 +94,6 @@ const preencherSaida = (dados) => {
     let resultado = 12;
     if (diferenca != null) {
         diferenca = dados.diferenca.split(':', 1) - 1;
-
     }
 
     if (diferenca < 0) {
@@ -111,6 +129,8 @@ const preencherSaida = (dados) => {
 const preencher = (dados, opcao) => {
     let dadosJson = null;
     let container = null;
+
+
     switch (opcao) {
 
         case ("entrada"):

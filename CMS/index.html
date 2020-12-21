@@ -90,20 +90,18 @@
                             <label>
                                 Digite a senha:
                             </label>
-                            <input type="password" placeholder="Senha" id="userFile">
+                            <input type="password" placeholder="Senha" id="userPassword">
                         </div>
-                        <!-- <div class="camposInsert">
-                            <label>
-                                Digite a senha:
-                            </label>
-                            <input type="file">
-                        </div> -->
-                        <!-- <div class="camposInsert">
+                        
+                        <div class="camposInsert">
                             <label>
                                 Mande a foto:
                             </label>
-                            <input type="file" id="teste">
-                        </div> -->
+                            <form action="../api/index.php/usuario/Imagem/1" enctype="multipart/form-data" method="POST">
+                                <input type="file" id="teste" name="foto">
+                                <input type="submit">
+                            </form>
+                        </div>
                         <div class="camposInsert">
                             <label>
                                 Nível de Acesso:
@@ -141,7 +139,7 @@
                     <h1>Relatório de ganho</h1>
                     <div id="relatorioLabel">
                         <label>Insira a data para ver o relatório:</label>
-                        <input type="datetime" id="relatorioInput">
+                        <input type="text" id="relatorioInput">
                     </div>
                     <table id="tableRelatorio">
                         <tr class="firstLine">
