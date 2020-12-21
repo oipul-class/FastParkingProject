@@ -513,19 +513,6 @@ header {
     /* border: solid 2px #0F5585; */
 }
 
-.fotoForm {
-    width: auto;
-    height: auto;
-    /* background-color: #0F5585; */
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-}
-
-.enviarFoto{
-    background-color: #0F5585;
-}
 
 .usuarioIcon {
     display: flex;
@@ -638,9 +625,11 @@ header {
     font-size: 24px;
 }
 
-.camposInsert input,
+.camposInsert input[type="text"],
+.camposInsert input[type="password"],
 .camposInsert select,
-.camposEdit input,
+.camposEdit input[type="text"],
+.camposEdit input[type="password"],
 .camposEdit select {
     min-width: 60vw;
     height: inherit;
@@ -654,12 +643,73 @@ header {
     border-bottom: solid 2px #0F5585;
 }
 
-.camposEdit input,
+.camposEdit input[type="text"],
+.camposEdit input[type="password"],
 .camposEdit select {
     min-width: 25vw;
     max-width: 40vw;
     overflow: hidden;
 }
+
+
+.fotoForm {
+    width: auto;
+    height: auto;
+    /* background-color: #0F5585; */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.enviarFoto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.enviarFoto label{
+    font-size: 14px;
+    width: 250px;
+    height: 40px;
+    background-color: #0F5585;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.enviarFoto label:hover{
+    cursor: pointer;
+    background-color:#479cd4;
+    color: white;
+}
+.enviarFoto label:active{
+    background-color: #ffffff;
+    transition: all 0.5s;
+}
+
+.enviarFoto input[type="file"]{
+    /* background-color: #0F5585; */
+    width: 150px;
+    display: none;
+    /* display: none; */
+}
+.enviarFoto input[type="submit"]{
+    width: 150px;
+    height: 40px;
+    border-radius: 50px;
+    border: none;
+    transition: all 0.3s;
+}
+.enviarFoto input[type="submit"]:hover{
+    cursor: pointer;
+    background-color: #0F5585;
+    color: white;
+}
+.enviarFoto input[type="submit"]:active{
+    background-color: #ffffff;
+    transition: all 0.5s;
+}
+
 
 .buttonEnviar {
     width: 300px;
